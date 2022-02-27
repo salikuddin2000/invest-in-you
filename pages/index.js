@@ -5,12 +5,21 @@ import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import FirebaseAuth from '../components/auth/FirebaseAuth'
 import {useUser} from '../firebase/useUser'
+import initFirebase from '../firebase/initFirebase'
+import { createMultipleProjects } from '../firebase/sample'
+import { getFirestore } from 'firebase/firestore'
 
 // import firebase from '../firebase/initFirebase'
 
 export default function Home() {
+  // useEffect(() => {
+  //   //Init database, init firestore, create 10 new projects
+  //   createMultipleProjects(getFirestore(initFirebase()))
+  // },[]);
+  
   const {user,logout}=useUser()
-  useEffect(() => {    
+  useEffect(() => {
+    
     (console.log(user))
   }, [user]);
   return (
