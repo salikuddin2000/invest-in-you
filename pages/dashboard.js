@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import {useUser} from '../firebase/useUser'
 import { createNewAsset, getProjectByDocIdRealTime } from '../firebase/sample'
 
-function login() {
+function dashboard() {
   const {user,logout}=useUser()
   const {abc}=getProjectByDocIdRealTime("03zqieiQwGAMvdYZJM9w");
   // useEffect(() => {    
@@ -17,10 +17,10 @@ function login() {
   return (
     <>    
     {abc?<h2>{abc.initialPrice}</h2>:<h2>initial</h2>}
-    <h1>login</h1>
+    <h1>Logged In</h1>
     <button onClick={logout}>Logout</button>
     </>
   )
 }
 
-export default login
+export default dashboard

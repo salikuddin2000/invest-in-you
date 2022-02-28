@@ -44,7 +44,7 @@ const useUser = ()  => {
                 }
                 setUserCookie(userData)
                 setUser(userData)
-                router.push('/login')
+                router.push('/dashboard')
             } else {
                 removeUserCookie()
                 setUser()
