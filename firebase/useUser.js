@@ -8,10 +8,11 @@ import {
     getUserFromCookie,
 } from './userCookies'
 import { mapUserData } from './mapUserData'
+import { checkUser, createNewUser } from './sample';
 
 initFirebase()
 
-const useUser = () => {
+const useUser = ()  => {
     const [user, setUser] = useState({})
     const router = useRouter()
     const auth = getAuth()
@@ -31,11 +32,16 @@ const useUser = () => {
         // Firebase updates the id token every hour, this
         // makes sure the react state and the cookie are
         // both kept up to date
-        const cancelAuthListener = auth.onIdTokenChanged((user) => {
-            console.log(user)
+        const cancelAuthListener = auth.onIdTokenChanged(async (user) =>  {
             if(user) {
                 const userData = mapUserData(user)
-                console.log(userData)
+                const d = await checkUser(userData.email)
+                console.log(d)
+                if(d===false){
+                    // if checkUser returns false
+                    console.log("creating.....")
+                    createNewUser(userData.name,userData.email)
+                }
                 setUserCookie(userData)
                 setUser(userData)
                 router.push('/login')
