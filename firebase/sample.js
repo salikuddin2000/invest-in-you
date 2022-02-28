@@ -1,4 +1,4 @@
-import { collection, doc, getFirestore, setDoc, getDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getFirestore, setDoc, getDoc, getDocs,onSnapshot, query,where } from 'firebase/firestore';
 import initFirebase from './initFirebase';
 import { useState,useEffect } from 'react';
 
@@ -12,9 +12,47 @@ export async function createNewProject(assetId, currentPrice = 10, initialPrice,
     currentPrice: currentPrice,
     initialPrice: initialPrice,
     likes: likes,
-    projectName: projectName,
+    projectName: projectName, 
     quantity: quantity
   }).then(() => console.log("Document written successfully."))
+}
+export async function createNewUser(displayName,email) {
+  const userRef = collection(getFirestore(app), 'users')
+  const name=displayName.split(" ")
+  let firstName=name[0]
+  let lastName=name[1]
+  await setDoc(doc(userRef), {    
+    FirstName:firstName,
+    LastName:lastName,
+    email:email,
+    credit:0,
+  }).then(() => console.log("user Document written successfully."))
+}
+
+export async function checkUser(email){
+  const userRef = collection(getFirestore(app),"users")
+  const q = query(userRef, where("email", "==", email));
+  const doc = await getDocs(q)
+  let docList = []
+  doc.forEach((e)=> docList.push(e))
+  if(docList.length!==0){
+    // console.log(true)
+    return true
+  }
+  else{ 
+    // console.log(false)
+    return false
+  }
+}
+
+export async function createNewAsset(contact, description,assetName) {
+  const assetsRef = collection(getFirestore(app), 'assets')
+
+  await setDoc(doc(assetsRef), {    
+    contact: contact,
+    description: description,
+    name: assetName,
+  }).then(() => console.log("Asset Document written successfully."))
 }
 
 
@@ -39,7 +77,7 @@ const getProjectByDocIdRealTime = (id) => {
   const [abc,setAbc]=useState();
   useEffect(() => {
     onSnapshot(doc(getFirestore(app), "projects", id), (doc) => {
-      console.log(doc.data())
+      // console.log(doc.data())
       setAbc(doc.data())
     })
   }, []);
