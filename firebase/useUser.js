@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import initFirebase from './initFirebase'
 import { getAuth } from "firebase/auth";
 import {
@@ -16,12 +16,11 @@ app
 
 const useUser = ()  => {
     const [user, setUser] = useState({})
-    const router = useRouter()
     const auth = getAuth()
-
+    
     const logout = async () => {
         try {
-            router.push("/");
+            Router.push("/");
             console.log("logout called")
             await auth.signOut();
             removeUserCookie();
@@ -29,8 +28,9 @@ const useUser = ()  => {
             console.log(e.message);
         }
     }
-
+    
     useEffect(() => {
+        const {pathname} = Router
         // Firebase updates the id token every hour, this
         // makes sure the react state and the cookie are
         // both kept up to date
@@ -46,17 +46,19 @@ const useUser = ()  => {
                 }
                 setUserCookie(userData)
                 setUser(userData)
-                router.push('/dashboard')
+                if(pathname=='/'){
+                 Router.push('/dashboard')
+                }
             } else {
                 removeUserCookie()
                 setUser()
-                router.push('/')
+                Router.push('/')
             }
         })
 
         const userFromCookie = getUserFromCookie()
         if (!userFromCookie) {
-            router.push('/')
+            Router.push('/')
             return
         }
         setUser(userFromCookie)
