@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import {useUser} from '../firebase/useUser'
-import { createNewAsset, getProjectByDocIdRealTime } from '../firebase/sample'
+import {getProjectByDocIdRealTime} from '../backend/export-backend'
 
 function dashboard() {
   const {user,logout}=useUser()

@@ -1,13 +1,8 @@
 import React,{useEffect} from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import FirebaseAuth from '../components/auth/FirebaseAuth'
 import {useUser} from '../firebase/useUser'
-import initFirebase from '../firebase/initFirebase'
-import { createMultipleProjects } from '../firebase/sample'
-import { getFirestore } from 'firebase/firestore'
 
 // import firebase from '../firebase/initFirebase'
 

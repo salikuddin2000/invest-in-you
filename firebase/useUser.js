@@ -8,9 +8,11 @@ import {
     getUserFromCookie,
 } from './userCookies'
 import { mapUserData } from './mapUserData'
-import { checkUser, createNewUser } from './sample';
+import {app} from './exportFirebase'
+import { checkUser, createNewUser } from '../backend/export-backend';
 
-initFirebase()
+// initFirebase()
+app
 
 const useUser = ()  => {
     const [user, setUser] = useState({})
