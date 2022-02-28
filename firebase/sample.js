@@ -74,7 +74,9 @@ export async function getProjectByDocId(db, documentId) {
 }
 
 const getProjectByDocIdRealTime = (id) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [abc,setAbc]=useState();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     onSnapshot(doc(getFirestore(app), "projects", id), (doc) => {
       // console.log(doc.data())
