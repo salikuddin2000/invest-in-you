@@ -1,6 +1,8 @@
 import { collection, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../firebase/exportFirebase';
 
+
+//Create new user
 export async function createNewUser(displayName, email) {
   const userRef = collection(db, 'users')
   const name = displayName.split(" ")
@@ -13,6 +15,8 @@ export async function createNewUser(displayName, email) {
   }).then(() => console.log("User Created Successfully."))
 }
 
+
+//Check if the user exists or not
 export async function checkUser(email) {
   const userRef = collection(db, "users")
   const q = query(userRef, where("email", "==", email));
@@ -24,15 +28,5 @@ export async function checkUser(email) {
   }
   else {
     return false
-  }
-}
-
-export async function getProjectByDocId(db, documentId) {
-  const col = collection(db, 'projects')
-  const docRef = doc(col, documentId)
-  const projectDocument = await getDoc(docRef)
-  if(projectDocument.exists()) {
-    //console.log(projectDocument.data())
-    return projectDocument.data()
   }
 }

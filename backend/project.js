@@ -1,4 +1,4 @@
-import { collection, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, batch, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where, limit } from 'firebase/firestore';
 import { db } from '../firebase/exportFirebase';
 import { useState, useEffect } from 'react';
 
@@ -31,4 +31,33 @@ export const getProjectByDocIdRealTime = (id) => {
     })
   }, []);
   return { abc }
+}
+
+export async function getProjectByDocId(db, documentId) {
+  const col = collection(db, 'projects')
+  const docRef = doc(col, documentId)
+  const projectDocument = await getDoc(docRef)
+  if (projectDocument.exists()) {
+    //console.log(projectDocument.data())
+    return projectDocument.data()
+  }
+}
+
+export async function getProjectsForDashboard() {
+  const projectsRef = collection(db, 'projects');
+  const q = query(projectsRef, limit(6))
+  const data = await getDocs(q)
+  const recommendationsList = []
+
+  data.forEach(async e => {
+    const assetDoc = await getDoc(e.data().assetId)
+    recommendationsList.push({
+      'projectName': e.data().projectName,
+      'currentPrice': e.data().currentPrice,
+      'likes': e.data().likes,
+      'assetName': assetDoc.data().name
+    })
+  })
+
+  return recommendationsList
 }
