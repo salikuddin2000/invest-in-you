@@ -81,4 +81,4 @@ async function SomeFunc() {
   console.log(projectPage)
 }
 
-SomeFunc()
+// SomeFunc()
