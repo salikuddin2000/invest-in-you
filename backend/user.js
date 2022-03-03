@@ -1,6 +1,7 @@
 import { collection, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase/exportFirebase';
+import { getProjectByDocId } from './project';
 
 
 //Create new user
@@ -32,17 +33,45 @@ export async function checkUser(email) {
   }
 }
 
-function userDetails(email) {
-  const [userData, setUserData] = useState();
+// returns user data as well as user reference
+export function userDetails(email) {
+  const [userData, setUserData] = useState()
   const usersColRef = collection(db, 'users')
   const q = query(usersColRef, where("email", '==', email))
-  
-  useEffect(async() => {
+
+  useEffect(async () => {
     const userDetails = await getDocs(q)
-    userDetails.forEach(e => setUserData(e.data()))
+    setUserData({
+      "data": userDetails.docs[0].data(),
+      "ref": userDetails.docs[0].ref
+    })
   }, []);
-  
-  return {userData};
-  
+
+  return { userData };
 }
-export {userDetails}
+
+export async function userHoldings(userRef) {
+  
+    const holdingsColRef = collection(db, 'holdings')
+    const q = query(holdingsColRef, where("userId", "==", userRef))
+    const doc = await getDocs(q)
+    const holdings = []
+    for(let d of doc.docs) {
+
+      const project = await getDoc(d.data().projectId)
+      const asset = await getDoc(project.data().assetId)
+
+      holdings.push({
+        "assetName": asset.data().name,
+        "assetRef": asset.ref,
+        "projectRef": d.data().projectId,
+        "projectName": project.data().projectName,
+        "quantity": d.data().quantity,
+        "timestamp": d.data().timestamp
+      })
+    }
+    
+    // doc.docs.forEach(e => setHoldings(holdings.push(e.data())))
+
+  return holdings
+}

@@ -77,8 +77,8 @@ export async function getProjectForProjectPage(projectRef) {
 
 async function SomeFunc() {
   const dashboard = await getProjectsForDashboard()
-  const projectPage = await getProjectForProjectPage(dashboard[1].projectRef)
-  console.log(projectPage)
+  // const projectPage = await getProjectForProjectPage(dashboard[1].projectRef)
+  console.log(dashboard)
 }
 
 // SomeFunc()

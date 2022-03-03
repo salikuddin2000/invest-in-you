@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import {useUser} from '../firebase/useUser'
-import {getProjectByDocIdRealTime,userDetails} from '../backend/export-backend'
+import {getProjectByDocIdRealTime,userDetails, userHoldings} from '../backend/export-backend'
 
 
 
@@ -8,7 +8,11 @@ function dashboard() {
   const {user,logout}=useUser()
   const {abc}=getProjectByDocIdRealTime("03zqieiQwGAMvdYZJM9w");
   const {userData} = userDetails("gaming0world726@gmail.com")
-  console.log(userData)
+  if(userData) {
+    userHoldings(userData.ref).then(e => console.log(e))
+    // console.log(holdings)
+  }
+  
   // const {res}=somefunc()
   // useEffect(() => {    
     //   (console.log(user))
