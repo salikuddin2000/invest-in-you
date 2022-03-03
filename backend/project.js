@@ -1,4 +1,4 @@
-import { collection, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, batch, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where, limit } from 'firebase/firestore';
 import { db } from '../firebase/exportFirebase';
 import { useState, useEffect } from 'react';
 
@@ -32,3 +32,53 @@ export const getProjectByDocIdRealTime = (id) => {
   }, []);
   return { abc }
 }
+
+export async function getProjectByDocId(db, documentId) {
+  const col = collection(db, 'projects')
+  const docRef = doc(col, documentId)
+  const projectDocument = await getDoc(docRef)
+  if (projectDocument.exists()) {
+    return projectDocument.data()
+  }
+}
+
+export async function getProjectsForDashboard() {
+  const projectsRef = collection(db, 'projects');
+  const q = query(projectsRef, limit(6))
+  const data = await getDocs(q)
+  let recommendationsList = []
+  
+  for(var d of data.docs) {
+    const assetDoc = await getDoc(d.data().assetId)
+    let obj = {
+      'projectName': d.data().projectName,
+      'currentPrice': d.data().currentPrice,
+      'likes': d.data().likes,
+      'assetName': assetDoc.data().name,
+      'projectRef': d.ref
+    }
+    recommendationsList.push(obj)
+  }
+
+  return recommendationsList
+}
+
+export async function getProjectForProjectPage(projectRef) {
+  const project = await getDoc(projectRef)
+  const asset = await getDoc(project.data().assetId)
+  // console.log(asset.data())
+  
+  return {
+    "project": project.data(),
+    "asset": asset.data()
+  }
+}
+
+
+async function SomeFunc() {
+  const dashboard = await getProjectsForDashboard()
+  const projectPage = await getProjectForProjectPage(dashboard[1].projectRef)
+  console.log(projectPage)
+}
+
+// SomeFunc()
