@@ -38,7 +38,6 @@ export async function getProjectByDocId(db, documentId) {
   const docRef = doc(col, documentId)
   const projectDocument = await getDoc(docRef)
   if (projectDocument.exists()) {
-    //console.log(projectDocument.data())
     return projectDocument.data()
   }
 }
@@ -47,17 +46,39 @@ export async function getProjectsForDashboard() {
   const projectsRef = collection(db, 'projects');
   const q = query(projectsRef, limit(6))
   const data = await getDocs(q)
-  const recommendationsList = []
-
-  data.forEach(async e => {
-    const assetDoc = await getDoc(e.data().assetId)
-    recommendationsList.push({
-      'projectName': e.data().projectName,
-      'currentPrice': e.data().currentPrice,
-      'likes': e.data().likes,
-      'assetName': assetDoc.data().name
-    })
-  })
+  let recommendationsList = []
+  
+  for(var d of data.docs) {
+    const assetDoc = await getDoc(d.data().assetId)
+    let obj = {
+      'projectName': d.data().projectName,
+      'currentPrice': d.data().currentPrice,
+      'likes': d.data().likes,
+      'assetName': assetDoc.data().name,
+      'projectRef': d.ref
+    }
+    recommendationsList.push(obj)
+  }
 
   return recommendationsList
 }
+
+export async function getProjectForProjectPage(projectRef) {
+  const project = await getDoc(projectRef)
+  const asset = await getDoc(project.data().assetId)
+  // console.log(asset.data())
+  
+  return {
+    "project": project.data(),
+    "asset": asset.data()
+  }
+}
+
+
+async function SomeFunc() {
+  const dashboard = await getProjectsForDashboard()
+  const projectPage = await getProjectForProjectPage(dashboard[1].projectRef)
+  console.log(projectPage)
+}
+
+SomeFunc()
