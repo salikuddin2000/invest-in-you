@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import {useUser} from '../firebase/useUser'
-import {getProjectByDocIdRealTime} from '../backend/export-backend'
-import {userDetails} from "../backend/userDetails"
+import {getProjectByDocIdRealTime,userDetails} from '../backend/export-backend'
+
 
 
 function dashboard() {

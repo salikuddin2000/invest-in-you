@@ -32,20 +32,17 @@ export async function checkUser(email) {
   }
 }
 
-//return user details given email id
-// async function userDetails(email) {
-//   const [userData, setUserData] = useState();
-//   const usersColRef = collection(db, 'users')
-//   const q = query(usersColRef, where("email", '==', email))
-//   const userDetails = await getDocs(q)
-//   userDetails.forEach((e) => console.log(e.data()))
+function userDetails(email) {
+  const [userData, setUserData] = useState();
+  const usersColRef = collection(db, 'users')
+  const q = query(usersColRef, where("email", '==', email))
   
-//   useEffect(() => {
-//     userDetails.forEach(e => setUserData(e.data()))
-//   }, []);
+  useEffect(async() => {
+    const userDetails = await getDocs(q)
+    userDetails.forEach(e => setUserData(e.data()))
+  }, []);
   
-//   if (userData) return userData;
-//   else return {};
+  return {userData};
   
-// }
-// export {userDetails}
+}
+export {userDetails}
