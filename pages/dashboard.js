@@ -1,6 +1,8 @@
 import React,{useEffect,useState} from 'react'
 import {useUser} from '../firebase/useUser'
 import {getProjectByDocIdRealTime,userDetails, userHoldings, getProjectsForDashboard} from '../backend/export-backend'
+import { Typography } from '@mui/material';
+import Recommendations from '../components/dashboardComponents/Recommendations';
 // import * as React from 'react';
 
 
@@ -10,11 +12,11 @@ function dashboard(props) {
   const {user,logout}=useUser()
   const {abc}=getProjectByDocIdRealTime("03zqieiQwGAMvdYZJM9w");
   const {userData} = userDetails("gaming0world726@gmail.com")
+  const {recommendationsList} = getProjectsForDashboard();
   // if(userData) {
   //   userHoldings(userData.ref).then(e => console.log(e))
   //   // console.log(holdings)
   // }
-  const {recommendationsList}= getProjectsForDashboard();
   useEffect(() => {
     console.log(recommendationsList)
   }, [recommendationsList]);
@@ -34,6 +36,11 @@ function dashboard(props) {
     {abc?<h2>{abc.initialPrice}</h2>:<h2>initial</h2>}
     <h1>Logged In</h1>
     <button onClick={logout}>Logout</button>
+    <Typography variant="h6" component="div">
+      Recommendations
+      <br />
+      <Recommendations />
+    </Typography>
     Scroll test <br />
     Scroll test <br />
     Scroll test <br />
