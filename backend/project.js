@@ -1,6 +1,7 @@
 import { collection, batch, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where, limit } from 'firebase/firestore';
 import { db } from '../firebase/exportFirebase';
 import { useState, useEffect } from 'react';
+import { async } from '@firebase/util';
 
 export async function createNewProject(assetId, currentPrice = 10, initialPrice, likes = 0, projectName, quantity) {
   const projectsRef = collection(db, 'projects')
@@ -42,25 +43,31 @@ export async function getProjectByDocId(db, documentId) {
   }
 }
 
-export async function getProjectsForDashboard() {
+export  function getProjectsForDashboard() {
   const projectsRef = collection(db, 'projects');
   const q = query(projectsRef, limit(6))
-  const data = await getDocs(q)
-  let recommendationsList = []
-  
-  for(var d of data.docs) {
-    const assetDoc = await getDoc(d.data().assetId)
-    let obj = {
-      'projectName': d.data().projectName,
-      'currentPrice': d.data().currentPrice,
-      'likes': d.data().likes,
-      'assetName': assetDoc.data().name,
-      'projectRef': d.ref
+  const [recommendationsList,setRecommendationsList] =useState([])
+  useEffect(async() => {
+    const data = await getDocs(q)
+    // let recommendationsList = []
+    let arr=[]
+    for(var d of data.docs) {
+      const assetDoc = await getDoc(d.data().assetId)
+      let obj = {
+        'projectName': d.data().projectName,
+        'currentPrice': d.data().currentPrice,
+        'likes': d.data().likes,
+        'assetName': assetDoc.data().name,
+        'projectRef': d.ref
+      }
+      // console.log(obj)
+      arr.push(obj)
     }
-    recommendationsList.push(obj)
-  }
+    setRecommendationsList(arr)
 
-  return recommendationsList
+  }, []);
+
+  return {recommendationsList}
 }
 
 export async function getProjectForProjectPage(projectRef) {
