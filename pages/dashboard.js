@@ -33,14 +33,11 @@ function dashboard(props) {
         return (
           <>    
           {/* {console.log(res)} */}
-    {abc?<h2>{abc.initialPrice}</h2>:<h2>initial</h2>}
+    {/* {abc?<h2>{abc.initialPrice}</h2>:<h2>initial</h2>}
     <h1>Logged In</h1>
-    <button onClick={logout}>Logout</button>
-    <Typography variant="h6" component="div">
-      Recommendations
-      <br />
+    <button onClick={logout}>Logout</button> */}
+
       <Recommendations />
-    </Typography>
     Scroll test <br />
     Scroll test <br />
     Scroll test <br />

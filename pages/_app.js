@@ -11,6 +11,38 @@ import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Zoom from '@mui/material/Zoom';
 import Slide from '@mui/material/Slide';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+// import Button from "@material-ui/core/Button";
+
+const themeLight = createTheme({
+  palette: {
+    background: {
+      default: "#e5e5e5"
+    }
+  }
+});
+
+// const themeDark = createTheme({
+//   palette: {
+//     background: {
+//       default: "#222222"
+//     },
+//     text: {
+//       primary: "#ffffff"
+//     }
+//   }
+// });
+
+// const App = () => {
+//   const [light, setLight] = React.useState(true);
+//   return (
+//     <MuiThemeProvider theme={light ? themeLight : themeDark}>
+//       <CssBaseline />
+//       <Button onClick={() => setLight(prev => !prev)}>Toggle Theme</Button>
+//     </MuiThemeProvider>
+//   );
+// };
+
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -85,8 +117,9 @@ HideOnScroll.propTypes = {
 
 function MyApp({ Component, pageProps,props }) {
   return (
-    <>
+    <ThemeProvider theme={themeLight}>
       <CssBaseline />
+    {/* <Container style={{backgroundColor:"#E5E5E5" }}> */}
       <HideOnScroll {...props}>
         <AppBar>
           <Toolbar>
@@ -96,8 +129,8 @@ function MyApp({ Component, pageProps,props }) {
           </Toolbar>
         </AppBar>
       </HideOnScroll>
+      <Container  style={{backgroundColor:"#E5E5E5" /* ,width:"100%" , margin:"0 0 0 0"  ,paddingLeft:"0px",paddingRight:"0px",right:"0" */}}>
       <Toolbar id="back-to-top-anchor" />
-      <Container>
         <Box sx={{ my: 2 }}>
           <Component {...pageProps} />
         </Box>
@@ -107,7 +140,8 @@ function MyApp({ Component, pageProps,props }) {
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
-    </>
+      {/* </Container> */}
+    </ThemeProvider>
   );
 }
 
