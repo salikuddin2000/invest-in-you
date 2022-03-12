@@ -38,7 +38,7 @@ const useUser = ()  => {
             if(user) {
                 const userData = mapUserData(user)
                 const d = await checkUser(userData.email)
-                console.log(d)
+                // console.log(d)
                 if(d===false){
                     // if checkUser returns false
                     console.log("creating.....")
@@ -64,7 +64,7 @@ const useUser = ()  => {
         setUser(userFromCookie)
 
         return () => {
-            console.log(user),
+            // console.log(user),
             cancelAuthListener()
         }
     }, [])

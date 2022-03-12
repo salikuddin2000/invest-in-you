@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/exportFirebase";
 import { useState, useEffect } from "react";
-import { async } from "@firebase/util";
 import { assetInfoForAssetPage, getAssetByAssetRef } from "./asset";
 
 export async function createNewProject(
@@ -51,14 +50,15 @@ export function createMultipleProjects(db) {
   }
 }
 
-export const getProjectByDocIdRealTime = (id) => {
-  const [abc, setAbc] = useState();
+export function getProjectByDocIdRealTime(id){
+  const [realtimeProject, setRealtimeProject] = useState()
   useEffect(() => {
-    onSnapshot(doc(db, "projects", id), (doc) => {
-      setAbc(doc.data());
-    });
+    onSnapshot(doc(db, "projects", id), (e)=> {
+        setRealtimeProject(e.data())
+        console.log(e.data());
+    })
   }, []);
-  return { abc };
+  return {realtimeProject} 
 };
 
 export async function getProjectByDocId(db, documentId) {
@@ -75,25 +75,26 @@ export function getProjectsForDashboard() {
   const q = query(projectsRef, limit(6));
   const [recommendationsList, setRecommendationsList] = useState([]);
   useEffect(async () => {
-    const data = await getDocs(q);
-    // let recommendationsList = []
-    let arr = [];
-    for (var d of data.docs) {
-      const assetDoc = await getDoc(d.data().assetId);
-      let obj = {
-        projectName: d.data().projectName,
-        currentPrice: d.data().currentPrice,
-        likes: d.data().likes,
-        assetName: assetDoc.data().name,
-        projectRef: d.ref,
-      };
-      // console.log(obj)
-      arr.push(obj);
-    }
-    setRecommendationsList(arr);
+    onSnapshot(q,async(querySnapshot)=>{
+      const recommendations=[]
+        for(let doc of querySnapshot.docs) {
+          const assetData=await getAssetByAssetRef(doc.data().assetId)
+        let obj={
+          projectName: doc.data().projectName,
+          assetName: assetData.name,
+          currentPrice: doc.data().currentPrice,
+          likes: doc.data().likes
+        }
+        recommendations.push(obj)
+        }
+  
+      setRecommendationsList(recommendations)
+    })
   }, []);
-
-  return { recommendationsList };
+  useEffect(() => {
+    console.log(recommendationsList)
+  }, [recommendationsList]);
+  return {recommendationsList};
 }
 
 export async function getProjectForProjectPage(projectRef) {
@@ -135,7 +136,7 @@ async function SomeFunc() {
 
   //actual function call
   const res= await assetInfoForAssetPage(docRef)
-  console.log(res)
+  // console.log(res)
 }
 
 SomeFunc()

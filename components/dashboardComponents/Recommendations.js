@@ -1,8 +1,11 @@
 import { Card, CardContent, Typography, Box, Container, CardActionArea } from "@mui/material";
 import { textAlign } from "@mui/system";
-import { getProjectsForDashboard } from "../../backend/project";
+import { getProjectByDocIdRealTime, getProjectsForDashboard } from "../../backend/project";
 import { useState } from "react";
 import { makeStyles } from '@mui/styles';
+import { useEffect } from "react";
+import { async } from "@firebase/util";
+
 
 const useStyles = makeStyles({
   root: {
@@ -13,13 +16,12 @@ const useStyles = makeStyles({
 });
 
 export default function Recommendations() {
-  const { recommendationsList } = getProjectsForDashboard();
+  const {recommendationsList} = getProjectsForDashboard()
   const classes = useStyles();
-  // const [state, setState] = useState({
-  //   raised: false,
-  //   shadow: 1,
-  // })
-  if (recommendationsList)
+  useEffect(() => {
+    console.log(recommendationsList)
+  }, [recommendationsList]);
+  if (recommendationsList!==undefined)
     return (
       //   <Box display="flex" justifyContent="center" alignItems="center" marginLeft="10%" marginRight="10%">
       <Container style={{ paddingLeft: "10%", paddingRight: "10%", paddingTop: "20px" }}>
@@ -39,7 +41,7 @@ export default function Recommendations() {
               marginBottom: "10px"
             }}
             className={classes.root}
-          >
+          >            
             <CardActionArea>
               <CardContent>
                 <Typography variant="h5" style={{ fontWeight: "bolder" }}>
@@ -56,5 +58,5 @@ export default function Recommendations() {
         ))}
       </Container>
     );
-  else "";
+  else return(<h1>Loading</h1>);
 }
