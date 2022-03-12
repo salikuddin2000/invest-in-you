@@ -37,15 +37,20 @@ export async function checkUser(email) {
 export function userDetails(email) {
   const [userData, setUserData] = useState()
   const usersColRef = collection(db, 'users')
+  if(email){
+    console.log(email)
   const q = query(usersColRef, where("email", '==', email))
+  }
 
   useEffect(async () => {
+    if(email!==undefined){
+      console.log(email)
     const userDetails = await getDocs(q)
     setUserData({
       "data": userDetails.docs[0].data(),
       "ref": userDetails.docs[0].ref
-    })
-  }, []);
+    })}
+  }, [email]);
 
   return { userData };
 }
