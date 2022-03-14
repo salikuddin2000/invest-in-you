@@ -61,11 +61,13 @@ export function getProjectByDocIdRealTime(id){
   return {realtimeProject} 
 };
 
-export async function getProjectByDocId(db, documentId) {
+export async function getProjectByDocId(documentId) {
   const col = collection(db, "projects");
   const docRef = doc(col, documentId);
   const projectDocument = await getDoc(docRef);
+  console.log(projectDocument)
   if (projectDocument.exists()) {
+    console.log(projectDocument.data())
     return projectDocument.data();
   }
 }
