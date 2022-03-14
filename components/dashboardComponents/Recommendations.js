@@ -5,6 +5,8 @@ import { useState } from "react";
 import { makeStyles } from '@mui/styles';
 import { useEffect } from "react";
 import { async } from "@firebase/util";
+import Link from "next/link";
+
 
 
 const useStyles = makeStyles({
@@ -43,6 +45,16 @@ export default function Recommendations() {
             className={classes.root}
           >            
             <CardActionArea>
+            <Link
+                  href={{
+                    pathname:
+                      "/" + obj.assetId + "/" + obj.projectId,
+                    query: {
+                      projectRef: obj.projectId,
+                    },
+                  }}
+                  as={`/${obj.assetId}/${obj.projectId}`}
+                >
               <CardContent>
                 <Typography variant="h5" style={{ fontWeight: "bolder" }}>
                   {obj.projectName}
@@ -53,6 +65,7 @@ export default function Recommendations() {
                 </Typography>
                 <Typography sx={{ fontWeight: 'bold', fontSize: 20 }} color={"green"}>₹{obj.currentPrice}</Typography>
               </CardContent>
+              </Link>
             </CardActionArea>
           </Card>
         ))}

@@ -17,11 +17,11 @@ export async function getServerSideProps(context){
 }
 function ProjectPage(props) {
     // const router = useRouter()
+    const {project} = getProjectByDocId(props.projectRef.projectId)
     // const projectId = router.query.projectId
     useEffect(() => {
-        console.log(props.projectRef.projectId)
-        getProjectByDocId(props.projectRef.projectId)
-    }, [props]);
+        console.log(project)
+    }, [project]);
     // console.log(props)
   return (
     <div>Project Page{/* {[projectId]} */}</div>

@@ -61,15 +61,21 @@ export function getProjectByDocIdRealTime(id){
   return {realtimeProject} 
 };
 
-export async function getProjectByDocId(documentId) {
-  const col = collection(db, "projects");
-  const docRef = doc(col, documentId);
-  const projectDocument = await getDoc(docRef);
-  console.log(projectDocument)
-  if (projectDocument.exists()) {
-    console.log(projectDocument.data())
-    return projectDocument.data();
-  }
+export function getProjectByDocId(documentId) {
+  const [project,setProject] = useState()
+  useEffect(async() => {
+
+    const col = collection(db, "projects");
+    const docRef = doc(col, documentId);
+    const projectDocument = await getDoc(docRef);
+    // console.log(projectDocument)
+    if (projectDocument.exists()) {
+    setProject(projectDocument.data())
+    }
+  }, []);
+    console.log(project)
+    return {project};
+  
 }
 
 export function getProjectsForDashboard() {
@@ -84,6 +90,8 @@ export function getProjectsForDashboard() {
         let obj={
           projectName: doc.data().projectName,
           assetName: assetData.name,
+          assetId:doc.data().assetId.id,
+          projectId:doc.id,
           currentPrice: doc.data().currentPrice,
           likes: doc.data().likes
         }
@@ -124,7 +132,16 @@ export async function getListofProjectsByAssetRef(assetRef) {
 
   const projectsList=[]
   for(var d of docs.docs) {
-    projectsList.push(d.data())
+    let obj={
+      // assetId: d.data().assetId
+      currentPrice: d.data().currentPrice,
+      initialPrice: d.data().initialPrice,
+      likes: d.data().likes,
+      projectName: d.data().projectName,
+      quantity: d.data().quantity,
+      projectId: d.id
+    }
+    projectsList.push(obj)
   }
 
   return projectsList
@@ -137,8 +154,8 @@ async function SomeFunc() {
   const docRef = doc(col, 'Wih6mkH29p7c6PlC7EhL')
 
   //actual function call
-  const res= await assetInfoForAssetPage(docRef)
+  // const res= await assetInfoForAssetPage(docRef)
   // console.log(res)
 }
 
-SomeFunc()
+// SomeFunc()
