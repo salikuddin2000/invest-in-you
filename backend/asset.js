@@ -21,7 +21,9 @@ export async function createNewAsset(contact, description,assetName) {
     return asset.exists() ? asset.data() : null
   }
 
-  export async function assetInfoForAssetPage(assetRef) {
+  export async function assetInfoForAssetPage(assetId) {
+    const col = collection(db, "assets");
+    const assetRef = doc(col, assetId);
     const obj = {}
     obj['asset'] = await getAssetByAssetRef(assetRef)
     obj['projects'] = await getListofProjectsByAssetRef(assetRef)
