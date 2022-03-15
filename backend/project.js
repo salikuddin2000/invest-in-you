@@ -10,6 +10,7 @@ import {
   query,
   where,
   limit,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase/exportFirebase";
 import { useState, useEffect } from "react";
@@ -50,32 +51,32 @@ export function createMultipleProjects(db) {
   }
 }
 
-export function getProjectByDocIdRealTime(id){
+export function getProjectByDocIdRealTime(id) {
   const [realtimeProject, setRealtimeProject] = useState()
   useEffect(() => {
-    onSnapshot(doc(db, "projects", id), (e)=> {
-        setRealtimeProject(e.data())
-        console.log(e.data());
+    onSnapshot(doc(db, "projects", id), (e) => {
+      setRealtimeProject(e.data())
+      console.log(e.data());
     })
   }, []);
-  return {realtimeProject} 
+  return { realtimeProject }
 };
 
 export function getProjectByDocId(documentId) {
-  const [project,setProject] = useState()
-  useEffect(async() => {
+  const [project, setProject] = useState()
+  useEffect(async () => {
 
     const col = collection(db, "projects");
     const docRef = doc(col, documentId);
     const projectDocument = await getDoc(docRef);
     // console.log(projectDocument)
     if (projectDocument.exists()) {
-    setProject(projectDocument.data())
+      setProject(projectDocument.data())
     }
   }, []);
-    console.log(project)
-    return {project};
-  
+  console.log(project)
+  return { project };
+
 }
 
 export function getProjectsForDashboard() {
@@ -83,28 +84,28 @@ export function getProjectsForDashboard() {
   const q = query(projectsRef, limit(6));
   const [recommendationsList, setRecommendationsList] = useState([]);
   useEffect(async () => {
-    onSnapshot(q,async(querySnapshot)=>{
-      const recommendations=[]
-        for(let doc of querySnapshot.docs) {
-          const assetData=await getAssetByAssetRef(doc.data().assetId)
-        let obj={
+    onSnapshot(q, async (querySnapshot) => {
+      const recommendations = []
+      for (let doc of querySnapshot.docs) {
+        const assetData = await getAssetByAssetRef(doc.data().assetId)
+        let obj = {
           projectName: doc.data().projectName,
           assetName: assetData.name,
-          assetId:doc.data().assetId.id,
-          projectId:doc.id,
+          assetId: doc.data().assetId.id,
+          projectId: doc.id,
           currentPrice: doc.data().currentPrice,
           likes: doc.data().likes
         }
         recommendations.push(obj)
-        }
-  
+      }
+
       setRecommendationsList(recommendations)
     })
   }, []);
   useEffect(() => {
-    console.log(recommendationsList)
+    // console.log(recommendationsList)
   }, [recommendationsList]);
-  return {recommendationsList};
+  return { recommendationsList };
 }
 
 export async function getProjectForProjectPage(projectRef) {
@@ -127,12 +128,12 @@ export async function getProjectByProjectRef(projectRef) {
 export async function getListofProjectsByAssetRef(assetRef) {
   // actual workabable code
   const projectsCol = collection(db, "projects")
-  const q = query(projectsCol, where('assetId','==', assetRef))
+  const q = query(projectsCol, where('assetId', '==', assetRef))
   const docs = await getDocs(q)
 
-  const projectsList=[]
-  for(var d of docs.docs) {
-    let obj={
+  const projectsList = []
+  for (var d of docs.docs) {
+    let obj = {
       // assetId: d.data().assetId
       currentPrice: d.data().currentPrice,
       initialPrice: d.data().initialPrice,
@@ -146,16 +147,36 @@ export async function getListofProjectsByAssetRef(assetRef) {
 
   return projectsList
 }
-async function SomeFunc() {
+export function SomeFunc() {
   // const dashboard = await getProjectsForDashboard();
   // const projectPage = await getProjectForProjectPage(dashboard[1].projectRef)
   // console.log(dashboard);
-  const col = collection(db, 'assets')
-  const docRef = doc(col, 'Wih6mkH29p7c6PlC7EhL')
-
+  // projectLiveValuesForGraph("OjYummCSOLkwpD1CsZNy")
   //actual function call
   // const res= await assetInfoForAssetPage(docRef)
   // console.log(res)
 }
 
-// SomeFunc()
+
+export function projectLiveValuesForGraph(projectId) {
+  const livePriceCol = collection(db, "livePrice")
+  const projectCol = collection(db, "projects")
+  const projRef = doc(projectCol, projectId)
+  const q = query(livePriceCol, where("projectId", "==", projRef))
+  
+  const [priceList, setPriceList] = useState([])
+  const [timeList, setTimeList] = useState([])
+  
+  useEffect(()=>{
+    onSnapshot(q, async (docs) => {
+      await docs.docs.forEach(async e => {
+        setPriceList(priceList.push(await e.data().newPrice))
+        setTimeList(timeList.push(await e.data().timestamp))
+      })
+    })
+  },[])
+  
+  return {priceList, timeList}
+}
+
+SomeFunc()
