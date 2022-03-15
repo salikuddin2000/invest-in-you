@@ -74,7 +74,7 @@ export function getProjectByDocId(documentId) {
       setProject(projectDocument.data())
     }
   }, []);
-  console.log(project)
+  // console.log(project)
   return { project };
 
 }
@@ -168,15 +168,26 @@ export function projectLiveValuesForGraph(projectId) {
   const [timeList, setTimeList] = useState([])
   
   useEffect(()=>{
+    let price
+    let time
     onSnapshot(q, async (docs) => {
+      price=[]
+      time=[]
+      // var utcSeconds = 1234567890;
       await docs.docs.forEach(async e => {
-        setPriceList(priceList.push(await e.data().newPrice))
-        setTimeList(timeList.push(await e.data().timestamp))
+        var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+        price.push(await e.data().newPrice)
+        d.setUTCSeconds(e.data().timestamp.seconds);
+        let timeString=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"-"+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()
+        console.log(timeString)
+        time.push(timeString)
       })
+      setPriceList(price)
+      setTimeList(time)
     })
-  },[])
+  },[projectId])
   
   return {priceList, timeList}
 }
 
-SomeFunc()
+// SomeFunc()
