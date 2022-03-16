@@ -162,7 +162,7 @@ export function projectLiveValuesForGraph(projectId) {
   const livePriceCol = collection(db, "livePrice")
   const projectCol = collection(db, "projects")
   const projRef = doc(projectCol, projectId)
-  const q = query(livePriceCol, where("projectId", "==", projRef))
+  const q = query(livePriceCol, where("projectId", "==", projRef), orderBy("timestamp", "asc"), limit(30))
   
   const [priceList, setPriceList] = useState([])
   const [timeList, setTimeList] = useState([])
