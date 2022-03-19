@@ -1,7 +1,6 @@
 import { collection, doc, getFirestore, setDoc, getDoc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase/exportFirebase';
-import { getProjectByDocId } from './project';
 
 
 //Create new user
@@ -80,3 +79,25 @@ export async function userHoldings(userRef) {
 
   return holdings
 }
+
+export async function checkUserHolding(userId, projectId) {
+  const holdingCol = collection(db, "holdings")
+  const projectsCol = collection(db, "projects")
+  const usersCol = collection(db, "users")
+  
+  const userRef = doc(usersCol, userId)
+  const projRef = doc(projectsCol, projectId)
+  
+  const q = query(holdingCol, where("userId", "==", userRef), where("projectId", "==", projRef))
+  
+  const holding = await getDocs(q)
+  
+  return holding.empty ? false : true
+}
+
+// async function something() {
+//   const q = await checkUserHolding("6LURo5LyCU4sw6wVjtRo", "OjYummCSOLkwpD1CsZNy")
+//   console.log(q)
+// }
+
+// something()
