@@ -66,6 +66,9 @@ function ProjectPage(props) {
           ],
         }}
       />
+      <button>Buy</button>
+       {checkUserHolding(/* yet to pass */ userId /* yet to pass */, props.projectRef.projectId)?<button>Sell</button>:""}    
+      
     </>
   );
 }
