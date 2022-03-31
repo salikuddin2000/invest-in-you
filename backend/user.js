@@ -47,7 +47,8 @@ export function userDetails(email) {
     const userDetails = await getDocs(q)
     setUserData({
       "data": userDetails.docs[0].data(),
-      "ref": userDetails.docs[0].ref
+      "ref": userDetails.docs[0].ref,
+      "id": userDetails.docs[0].id
     })}
   }, [email]);
 
@@ -81,6 +82,8 @@ export async function userHoldings(userRef) {
 }
 
 export async function checkUserHolding(userId, projectId) {
+  console.log(projectId)
+  console.log(userId)
   const holdingCol = collection(db, "holdings")
   const projectsCol = collection(db, "projects")
   const usersCol = collection(db, "users")
