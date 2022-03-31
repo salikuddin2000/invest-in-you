@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { getProjectByDocId, projectLiveValuesForGraph } from "../../backend/project";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import { buy } from "../../backend/transaction";
 // import { Chart }            from 'react-chartjs-2'
 
 // const data = {
@@ -66,8 +67,8 @@ function ProjectPage(props) {
           ],
         }}
       />
-      <button>Buy</button>
-       {checkUserHolding(/* yet to pass */ userId /* yet to pass */, props.projectRef.projectId)?<button>Sell</button>:""}    
+      <button onClick={async()=>await buy("OjYummCSOLkwpD1CsZNy","infinitybusiness726@gmail.com",4)}>Buy</button>
+      
       
     </>
   );

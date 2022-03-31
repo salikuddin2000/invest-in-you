@@ -176,7 +176,7 @@ export function projectLiveValuesForGraph(projectId) {
       // var utcSeconds = 1234567890;
       await docs.docs.forEach(async e => {
         var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-        price.push(await e.data().newPrice)
+        price.push(await e.data().currentPrice)
         d.setUTCSeconds(e.data().timestamp.seconds);
         let timeString=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"-"+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()
         console.log(timeString)
