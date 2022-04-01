@@ -20,7 +20,7 @@ const firebaseAuthConfig = {
         // add additional auth flows below
         GoogleAuthProvider.PROVIDER_ID,
     ],
-    signInSuccessUrl: 'http://localhost:3000/dashboard',
+    // signInSuccessUrl: 'http://localhost:3000/dashboard',
     credentialHelper: 'none',
     callbacks: {
         signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
