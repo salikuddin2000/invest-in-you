@@ -1,29 +1,45 @@
+import Router from "next/router"
 import React,{useEffect} from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import FirebaseAuth from '../components/auth/FirebaseAuth'
 import {useUser} from '../firebase/useUser'
-import initFirebase from '../firebase/initFirebase'
-import { createMultipleProjects } from '../firebase/sample'
-import { getFirestore } from 'firebase/firestore'
 
 // import firebase from '../firebase/initFirebase'
 
 export default function Home() {
-  // useEffect(() => {
-  //   //Init database, init firestore, create 10 new projects
-  //   createMultipleProjects(getFirestore(initFirebase()))
-  // },[]);
-  
+
   const {user,logout}=useUser()
-  useEffect(() => {
-    
-    (console.log(user))
-  }, [user]);
+  // const router = useRouter()
+  // useEffect(() => {
+  //   if(user!==undefined){
+  //       Router.push('/dashboard')
+  //   }
+  // },[]);
+
+  // useEffect(() => {
+    // Firebase updates the id token every hour, this
+    // makes sure the react state and the cookie are
+    // // both kept up to date
+    // async function cancelAuthListener(user){
+    //     if(user) {
+    //       console.log("yo")
+    //         router.push('/dashboard')
+    //     }
+    // }
+//     return () => {
+//         // console.log(user),
+//         cancelAuthListener(user)
+//     }
+// }, [])
+
+  // useEffect(() => {    
+  //   (console.log(user))
+  // }, [user]);
   return (
     <div className={styles.container}>
+      {/* cancelAuthListener() */}
+      {/* {user?<Redirect path="/dashboard"/>:""} */}
       {console.log(user)}
       <Head>
         <title>Create Next App</title>

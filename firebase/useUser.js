@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import initFirebase from './initFirebase'
 import { getAuth } from "firebase/auth";
 import {
@@ -8,17 +8,19 @@ import {
     getUserFromCookie,
 } from './userCookies'
 import { mapUserData } from './mapUserData'
+import {app} from './exportFirebase'
+import { checkUser, createNewUser } from '../backend/export-backend';
 
-initFirebase()
+// initFirebase()
+app
 
-const useUser = () => {
+const useUser = ()  => {
     const [user, setUser] = useState({})
-    const router = useRouter()
     const auth = getAuth()
-
+    
     const logout = async () => {
         try {
-            router.push("/");
+            Router.push("/");
             console.log("logout called")
             await auth.signOut();
             removeUserCookie();
@@ -26,35 +28,43 @@ const useUser = () => {
             console.log(e.message);
         }
     }
-
+    
     useEffect(() => {
+        const {pathname} = Router
         // Firebase updates the id token every hour, this
         // makes sure the react state and the cookie are
         // both kept up to date
-        const cancelAuthListener = auth.onIdTokenChanged((user) => {
-            console.log(user)
+        const cancelAuthListener = auth.onIdTokenChanged(async (user) =>  {
             if(user) {
                 const userData = mapUserData(user)
-                console.log(userData)
+                const d = await checkUser(userData.email)
+                // console.log(d)
+                if(d===false){
+                    // if checkUser returns false
+                    console.log("creating.....")
+                    createNewUser(userData.name,userData.email)
+                }
                 setUserCookie(userData)
                 setUser(userData)
-                router.push('/login')
+                if(pathname=='/'){
+                 Router.push('/dashboard')
+                }
             } else {
                 removeUserCookie()
                 setUser()
-                router.push('/')
+                Router.push('/')
             }
         })
 
         const userFromCookie = getUserFromCookie()
         if (!userFromCookie) {
-            router.push('/')
+            Router.push('/')
             return
         }
         setUser(userFromCookie)
 
         return () => {
-            console.log(user),
+            // console.log(user),
             cancelAuthListener()
         }
     }, [])
