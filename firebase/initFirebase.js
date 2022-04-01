@@ -16,11 +16,14 @@ const clientCredentials={
     appId: "1:716406252899:web:c09804ddc4d660b6a41f56",
     measurementId: "G-01Y5DMCTXQ"
 }
+
+
 export default function initFirebase(){
 
         if (typeof window !== undefined) {
-            initializeApp(clientCredentials)
+            const  app = initializeApp(clientCredentials)
             console.log("Firebase has been init successfully")
+            return app
         }
-
+        else return
 }
