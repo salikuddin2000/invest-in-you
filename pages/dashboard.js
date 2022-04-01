@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import AppBarComponent from "../components/AppBarComponent"
 
-function dashboard(props) {
+function Dashboard(props) {
   const { user, logout } = useUser()
   const { userData } = userDetails("gaming0world726@gmail.com")
 
@@ -37,5 +37,5 @@ function dashboard(props) {
   )
 }
 
-export default dashboard
+export default Dashboard
 
