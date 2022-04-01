@@ -182,8 +182,8 @@ export function projectLiveValuesForGraph(projectId) {
         // console.log(timeString)
         time.push(timeString)
       })
-      setPriceList(price)
-      setTimeList(time)
+      setPriceList(price.reverse())
+      setTimeList(time.reverse())
     })
   },[projectId])
   
