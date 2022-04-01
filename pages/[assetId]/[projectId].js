@@ -8,7 +8,7 @@ import {
 // import NumberFormat from 'react-number-format';
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
-import { buy } from "../../backend/transaction";
+import { buy, sell } from "../../backend/transaction";
 import { useUser } from "../../firebase/useUser";
 import { checkUserHolding } from "../../backend/user";
 import { userDetails } from "../../backend/user";
@@ -17,6 +17,9 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import { async } from "@firebase/util";
 
 const style = {
   position: "absolute",
@@ -29,7 +32,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 
 // const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, ref) {
 //   const { onChange, ...other } = props;
@@ -90,39 +92,57 @@ export async function getServerSideProps(context) {
   };
 }
 function ProjectPage(props) {
-  const [checkForSell, setCheckForSell] = useState();
+  const [checkForSell, setCheckForSell] = useState(false);
   const [check, setCheck] = useState(false);
   const { user } = useUser();
   const { userData } = userDetails(user.email);
   const { priceList, timeList } = projectLiveValuesForGraph(
     props.projectRef.projectId
   );
-  // const router = useRouter()
   const { project } = getProjectByDocId(props.projectRef.projectId);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  // const projectId = router.query.projectId
-  // useEffect(() => {
-  //   console.log(priceList);
-  // }, [priceList]);
+  const [sellOpen, setSellOpen] = useState(false);
+  const [buyOpen, setBuyOpen] = useState(false);
+  const [buyQuantity, setBuyQuantity] = useState(0);
+  const [sellQuantity, setSellQuantity] = useState(0);
+  const [holdingQuantity, setHoldingQuantity] = useState(0);
+  const handleSellOpen = () => setSellOpen(true);
+  const handleSellClose = () => setSellOpen(false);
+  const handleBuyOpen = () => setBuyOpen(true);
+  const handleBuyClose = () => setBuyOpen(false);
+
+  const handleBuyChange = (event) => {
+    setBuyQuantity(event.target.value);
+  };
+  const handleSellChange = (event) => {
+    setSellQuantity(event.target.value);
+  };
+  useEffect(() => {
+    console.log(buyQuantity);
+    console.log(sellQuantity);
+  }, [buyQuantity, sellQuantity]);
 
   useEffect(async () => {
     console.log("check");
-    if (userData && !check) {
+    if (userData) {
       console.log(userData);
       let checkHolding = await checkUserHolding(
         userData.id,
         props.projectRef.projectId
       );
       console.log(checkHolding);
-      setCheck(checkHolding);
+      if (checkHolding === false) {
+        setCheck(checkHolding);
+        setHoldingQuantity(0);
+      } else {
+        setCheck(true);
+        console.log(checkHolding);
+        setHoldingQuantity(parseInt(checkHolding));
+      }
     }
   }, [userData, checkForSell]);
-  // console.log(props)
   return (
     <>
-      <div>Project Page{/* {[projectId]} */}</div>
+      <div>Project Page</div>
       <Line
         style={{ maxWidth: "500px", maxHeight: "300px" }}
         data={{
@@ -135,28 +155,14 @@ function ProjectPage(props) {
               backgroundColor: "rgba(75,192,192,0.2)",
               borderColor: "rgba(75,192,192,1)",
             },
-            // {
-            //   label: "Second dataset",
-            //   data: [33, 25, 35, 51, 54, 76],
-            //   fill: false,
-            //   borderColor: "#742774"
-            // }
           ],
         }}
       />
-      <button
-        onClick={async () => {
-          await buy("OjYummCSOLkwpD1CsZNy", "infinitybusiness726@gmail.com", 4),
-            setCheckForSell(!checkForSell);
-        }}
-      >
-        Buy
-      </button>
-      {check ? <Button onClick={handleOpen}>sell</Button> : ""}
+      <Button onClick={handleBuyOpen}>Buy</Button>
       <Modal
         keepMounted
-        open={open}
-        onClose={handleClose}
+        open={buyOpen}
+        onClose={handleBuyClose}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
       >
@@ -166,18 +172,76 @@ function ProjectPage(props) {
           </Typography>
           <TextField
             label="Enter quantity"
-            // value={values.numberformat}
-            // onChange={handleChange}
+            onChange={handleBuyChange}
             name="numberformat"
             id="formatted-numberformat-input"
-            // InputProps={{
-            //   inputComponent: NumberFormatCustom,
-            // }}
             variant="standard"
           />
-          {/* <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
+          {console.log(userData)}
+          {project ? <h3>Rs{project.currentPrice * buyQuantity}</h3> : ""}
+          {userData &&
+          userData.data.credit < project.currentPrice * buyQuantity ? (
+            <Alert severity="error">
+              <AlertTitle>Insufficient Credit</AlertTitle>
+              Credit: <strong>Rs{userData.data.credit}</strong>
+            </Alert>
+          ) : (
+            <Button
+              onClick={async () => {
+                await buy(
+                  props.projectRef.projectId,
+                  user.email,
+                  parseInt(buyQuantity)
+                ),
+                  setCheckForSell(!checkForSell),
+                  setBuyOpen(false)
+              }}
+            >
+              Buy
+            </Button>
+          )}
+        </Box>
+      </Modal>
+      {check ? <Button onClick={handleSellOpen}>sell</Button> : ""}
+      <Modal
+        keepMounted
+        open={sellOpen}
+        onClose={handleSellClose}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            Enter quantity
+          </Typography>
+
+          <TextField
+            label="Enter quantity"
+            onChange={handleSellChange}
+            name="numberformat"
+            id="formatted-numberformat-input"
+            variant="standard"
+          />
+          {holdingQuantity < sellQuantity ? (
+            <Alert severity="error">
+              <AlertTitle>Insufficient Holdings</AlertTitle>
+              Holdings: <strong>{holdingQuantity}</strong>
+            </Alert>
+          ) : (
+            <Button
+              onClick={async () => {
+                await sell(
+                  user.email,
+                  props.projectRef.projectId,
+                  parseInt(sellQuantity)
+                ),
+                  setCheckForSell(!checkForSell),
+                  setSellOpen(false)
+              }}
+            >
+              Sell
+            </Button>
+          )}
         </Box>
       </Modal>
     </>

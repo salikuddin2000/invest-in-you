@@ -27,7 +27,7 @@ export async function sell(userEmailId, projectId, quantity) {
   const userHolding = await checkUserHolding(userId, projectId);
   console.log(userHolding);
 
-  if (userHolding === true) {
+  if (userHolding !== false) {
     const projCol = collection(db, "projects");
     const projRef = doc(projCol, projectId);
     const projData = (await getDoc(projRef)).data();
@@ -57,9 +57,14 @@ export async function sell(userEmailId, projectId, quantity) {
       await updateDoc(projRef, {
         quantity: newProjQuantity,
         credit: newProjCredit,
-        currentPrice: projData.currentPrice - randomValue
+        currentPrice: projData.currentPrice - randomValue,
       });
       await updateDoc(userRef, { credit: newUserCredit });
+      if(holding.quantity-quantity===0){
+        await deleteDoc(holdingRef.ref)
+      }else{
+        await updateDoc(holdingRef.ref, { quantity: holding.quantity - quantity })
+      }
       // await deleteDoc(holdingRef)
       const livePriceCol = collection(db, "livePrice");
       await setDoc(doc(livePriceCol), {
@@ -73,19 +78,7 @@ export async function sell(userEmailId, projectId, quantity) {
         quantity: quantity,
       });
     }
-
-    /* const transactionRef = doc(liveCol, "3PTzdQwZyakENmerGTpJ")
-        const transactionData = await getDoc(transactionRef)
-        console.log(transactionData.data()) */
   }
-
-  // console.log(projData)
-
-  // }
-  // catch (e) {
-  //     console.log("Sell Transaction Failed")
-  //     console.log(e)
-  // }
 }
 
 export async function buy(projectId, userEmailId, quantity) {
@@ -103,24 +96,24 @@ export async function buy(projectId, userEmailId, quantity) {
   console.log(projData);
   console.log(userData);
   if (
-      projData.quantity >= quantity &&
-      userData.credit >= quantity * projData.currentPrice
-      ) {
-          console.log("insidebuy");
-          let newProjQuantity = projData.quantity - quantity;
-          let newProjCredit = projData.credit + quantity * projData.currentPrice;
-          let newUserCredit = userData.credit - quantity * projData.currentPrice;
-          const randomValue = Math.floor(Math.random() * 10);
-          const newTimeStamp = Timestamp.now().toDate()
+    projData.quantity >= quantity &&
+    userData.credit >= quantity * projData.currentPrice
+  ) {
+    console.log("insidebuy");
+    let newProjQuantity = projData.quantity - quantity;
+    let newProjCredit = projData.credit + quantity * projData.currentPrice;
+    let newUserCredit = userData.credit - quantity * projData.currentPrice;
+    const randomValue = Math.floor(Math.random() * 10);
+    const newTimeStamp = Timestamp.now().toDate();
     await updateDoc(projRef, {
       quantity: newProjQuantity,
       credit: newProjCredit,
-      currentPrice: projData.currentPrice + randomValue
+      currentPrice: projData.currentPrice + randomValue,
     });
     await updateDoc(userRef, { credit: newUserCredit });
     const userHolding = await checkUserHolding(userId, projectId);
     console.log(userHolding);
-    if (userHolding === true) {
+    if (userHolding !== false) {
       const holdingCol = collection(db, "holdings");
       const holdingsQuery = query(
         holdingCol,
@@ -128,9 +121,7 @@ export async function buy(projectId, userEmailId, quantity) {
         where("projectId", "==", projRef)
       );
       const holdingRef = (await getDocs(holdingsQuery)).docs[0].ref;
-      // const holding = doc(holdingCol, holdingRef.id)
       const holding = (await getDoc(holdingRef)).data();
-      // console.log(holding)
 
       await updateDoc(holdingRef, { quantity: holding.quantity + quantity });
       console.log("project " + projectId + " bought by" + userId);

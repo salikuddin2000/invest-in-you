@@ -94,8 +94,9 @@ export async function checkUserHolding(userId, projectId) {
   const q = query(holdingCol, where("userId", "==", userRef), where("projectId", "==", projRef))
   
   const holding = await getDocs(q)
+  // console.log(holding.docs[0].data().quantity)
   
-  return holding.empty ? false : true
+  return holding.empty ? false : holding.docs[0].data().quantity
 }
 
 // async function something() {
