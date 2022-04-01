@@ -5,7 +5,7 @@ import AppBarComponent from "../components/AppBarComponent";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-function portfolio() {
+function Portfolio() {
   const { user } = useUser();
   let i = 0;
   // console.log(user.email)
@@ -81,4 +81,4 @@ function portfolio() {
   );
 }
 
-export default portfolio;
+export default Portfolio;
