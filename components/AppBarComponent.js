@@ -1,17 +1,39 @@
-import React,{useEffect,useState} from 'react'
-import { Typography } from '@mui/material';
-import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Zoom from '@mui/material/Zoom';
-import Slide from '@mui/material/Slide';
+import React, { useEffect, useState } from "react";
+import { Link, Typography } from "@mui/material";
+import Fab from "@mui/material/Fab";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Zoom from "@mui/material/Zoom";
+import Slide from "@mui/material/Slide";
 import { Button } from "@mui/material";
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import PropTypes from "prop-types";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import styled, { ThemeProvider } from "styled-components";
+import NoSsr from "@mui/material/NoSsr";
+import {
+  createTheme,
+  ThemeProvider as MuiThemeProvider,
+} from "@mui/material/styles";
+import { deepPurple } from "@mui/material/colors";
 
+
+const customTheme = createTheme({
+  palette: {
+    primary: {
+      main: deepPurple[500],
+    },
+  },
+  typography: {
+    "fontFamily": `sans-serif,"Roboto","Arial"`,
+    "fontSize": 14,
+    "fontWeightLight": 300,
+    "fontWeightRegular": 400,
+    "fontWeightMedium": 500
+   }
+});
 
 // export function ScrollTop(props) {
 //   const { children, window } = props;
@@ -49,7 +71,19 @@ import Container from '@mui/material/Container';
 //     </Zoom>
 //   );
 // }
-
+const StyledTypography = styled(Typography)`
+  ${({ theme }) => `
+  cursor: pointer;
+  color: black;
+  width:100px;
+  transition: ${theme.transitions.create(["transform"], {
+    duration: theme.transitions.duration.standard,
+  })};
+  &:hover {
+    transform: scale(1.1);
+  }
+  `}
+`;
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -83,27 +117,53 @@ HideOnScroll.propTypes = {
 //    */
 //   window: PropTypes.func,
 // };
-export function AppBarComponent(props){
-
-return(
-  <Container>
-
-    <HideOnScroll {...props}>
-    <AppBar>
-      <Toolbar>
-        <Typography variant="h6" component="div">
-          InvestInYou
-        </Typography>
-        <Button href={props.path} style={{marginLeft:"auto"/* ,float:"right" */,color:"white"}}>{props.pathname}</Button>
-      </Toolbar>
-    </AppBar>
-  </HideOnScroll>
+export function AppBarComponent(props) {
+  return (
+    <Container>
+      <HideOnScroll {...props}>
+        <AppBar sx={{ backgroundColor: "white" }}>
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ color: "blue" }}>
+              InvestInYou
+            </Typography>
+            <NoSsr>
+              <MuiThemeProvider theme={customTheme}>
+                <ThemeProvider theme={customTheme}>
+                  <StyledTypography
+                    component="div"
+                    sx={{ marginLeft: "auto", color: "black" }}
+                  >
+                    About Us
+                  </StyledTypography>
+                  <StyledTypography
+                    component="div"
+                    sx={{
+                      color: "black",
+                      marginRight: "20px" /* marginLeft:"auto" */,
+                    }}
+                  >
+                    Talk To Out Experts
+                  </StyledTypography>
+                </ThemeProvider>
+              </MuiThemeProvider>
+            </NoSsr>
+            <Button
+              href={props.path}
+              style={{
+                /* marginLeft:"auto" */ /* ,float:"right" */ color: "blue",
+              }}
+            >
+              {props.pathname}
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
       {/* <ScrollTop {...props}>
       <Fab color="secondary" size="small" aria-label="scroll back to top">
         <KeyboardArrowUpIcon />
       </Fab>
     </ScrollTop> */}
-</Container>
-)
+    </Container>
+  );
 }
-export default AppBarComponent
+export default AppBarComponent;

@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
+import AppBarComponent from "../../components/AppBarComponent"
 
 export async function getServerSideProps(context) {
   console.log(context.query);
@@ -51,12 +52,17 @@ function Assetpage(props) {
   return (
     // <div>Assetpage{/*  {[assetId]} */}</div>
     <>
+    <AppBarComponent path={"/portfolio"} pathname={"portfolio"}/>
+    <Box sx={{marginTop:"80px", paddingLeft:"7%",paddingRight:"7%"}}>
       {assetInfo ? (
-        <>
-          <h1>{assetInfo.name}</h1>
-          <h2>contact: {assetInfo.contact}</h2>
-          <h3>description: {assetInfo.description}</h3>
-        </>
+        <div style={{display:"flex",flexWrap:"wrap"/* ,flexDirection:"column" */}}>
+          <img src={assetInfo.photoURL} style={{height:"60vh"/* ,maxWidth:"50vh",flexBasis:"50%" */}}/>
+          <div style={{flexBasis:"50%"}}>
+          <h1 /*  style={{display:"inline"}} */>{assetInfo.name}</h1>
+          <h2 /*  style={{display:"inline"}} */>contact: {assetInfo.contact}</h2>
+          <h3 /*  style={{display:"inline"}} */>description: {assetInfo.description}</h3>
+          </div>
+        </div>
       ) : (
         ""
       )}
@@ -114,6 +120,83 @@ function Assetpage(props) {
             </Card>
           ))
         : ""}
+        </Box>
+        {/* <footer class="main-footer style-three" style="background-color: #c2e5dd; margin-top: -100px;">
+            <div class="auto-container">
+                <div class="widgets-section">
+                    <div class="row">
+                        <div class="big-column col-xl-4 col-lg-12 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="footer-column col-xl-8 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="footer-widget about-widget">
+                                        <div class="footer-logo">
+                                            <figure>
+                                                <a href="index.html"><img src="images/logo.png" alt="" /></a>
+                                            </figure>
+                                        </div>
+                                        <div class="widget-content">
+                                            <p>Invest in You have much planned for the future, working with great clients and continued Stock Investment. If you’d like to join our team.</p>
+                                            <ul class="social-icon-two">
+                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="big-column col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                            <div class="row clearfix">
+                                <div class="footer-column col-xl-5 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="footer-widget links-widget">
+                                        <h4 class="widget-title">Quick links</h4>
+                                        <div class="widget-content">
+                                            <ul class="list">
+                                                <li><a href="#">Vision & Values</a></li>
+                                                <li><a href="#">Careers</a></li>
+                                                <li><a href="#">Services</a></li>
+                                            </ul>
+                                            <ul class="list">
+                                                <li><a href="#">Awards</a></li>
+                                                <li><a href="#">Media</a></li>
+                                                <li><a href="#">Contact</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer-column col-xl-7 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="footer-widget links-widget">
+                                        <h4 class="widget-title">Useful links</h4>
+                                        <div class="widget-content">
+                                            <ul class="list">
+                                                <li><a href="#">Vision & Values</a></li>
+                                                <li><a href="#">Careers</a></li>
+                                                <li><a href="#">Services</a></li>
+                                            </ul>
+                                            <ul class="list">
+                                                <li><a href="#">Awards</a></li>
+                                                <li><a href="#">Media</a></li>
+                                                <li><a href="#">Contact</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="auto-container" style="max-width: 100%; padding: 0px;">
+                    <div class="inner-container clearfix">
+                        <div class="copyright-text">
+                            <p>Copyright © 2021 Invest in You. All right reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer> */}
     </>
   );
 }
