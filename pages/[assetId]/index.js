@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
-import AppBarComponent from "../../components/AppBarComponent"
+import AppBarComponent from "../../components/AppBarComponent";
 
 export async function getServerSideProps(context) {
   console.log(context.query);
@@ -52,76 +52,115 @@ function Assetpage(props) {
   return (
     // <div>Assetpage{/*  {[assetId]} */}</div>
     <>
-    <AppBarComponent path={"/portfolio"} pathname={"portfolio"}/>
-    <Box sx={{marginTop:"80px", paddingLeft:"7%",paddingRight:"7%"}}>
-      {assetInfo ? (
-        <div style={{display:"flex",flexWrap:"wrap"/* ,flexDirection:"column" */}}>
-          <img src={assetInfo.photoURL} style={{height:"60vh"/* ,maxWidth:"50vh",flexBasis:"50%" */}}/>
-          <div style={{flexBasis:"50%"}}>
-          <h1 /*  style={{display:"inline"}} */>{assetInfo.name}</h1>
-          <h2 /*  style={{display:"inline"}} */>contact: {assetInfo.contact}</h2>
-          <h3 /*  style={{display:"inline"}} */>description: {assetInfo.description}</h3>
+      <AppBarComponent path={"/portfolio"} pathname={"portfolio"} />
+      <Box sx={{ marginTop: "80px", paddingLeft: "7%", paddingRight: "7%" }}>
+        {assetInfo ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap" /* ,flexDirection:"column" */,
+            }}
+          >
+            <img
+              src={assetInfo.photoURL}
+              style={{ height: "40vh" /* ,maxWidth:"50vh",flexBasis:"50%" */ }}
+            />
+            <div style={{ flexBasis: "50%", marginLeft: "30px" }}>
+              <h1 /*  style={{display:"inline"}} */>{assetInfo.name}</h1>
+              <h2 style={{ color: "grey", fontWeight: "600" }}>
+                General Profile
+              </h2>
+              <h3 style={{ color: "grey", fontWeight: "500" }}>
+                <b>Short Bio:</b> {assetInfo.description}
+              </h3>
+              <h3 style={{ color: "grey", fontWeight: "500" }}>
+                <b>Profession:</b> {assetInfo.Profession}
+              </h3>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        {projectList
+          ? projectList.map((obj) => (
+              <Card
+                key={obj.projectId}
+                sx={{ minWidth: 180 }}
+                style={{
+                  display: "inline-block",
+                  width: "25%",
+                  marginLeft: "4%",
+                  marginRight: "4%",
+                  marginBottom: "10px",
+                }}
+                className={classes.root}
+              >
+                <CardActionArea>
+                  <Link
+                    href={{
+                      pathname:
+                        "/" + props.assetRef.assetId + "/" + obj.projectId,
+                      query: {
+                        projectRef: obj.projectId,
+                      },
+                    }}
+                    as={`/${props.assetRef.assetId}/${obj.projectId}`}
+                  >
+                    <CardContent>
+                      <Typography variant="h5" style={{ fontWeight: "bolder" }}>
+                        {obj.projectName}
+                      </Typography>
+                      <Typography
+                        color="text.secondary"
+                        sx={{ fontWeight: "700", marginBottom: "15px" }}
+                      >
+                        {obj.assetName}
+                      </Typography>
+                      <Typography
+                        color="text.secondary"
+                        style={{ fontSize: "10px" }}
+                        sx={{ fontWeight: "650" }}
+                      >
+                        Current Price
+                      </Typography>
+                      <Typography
+                        sx={{ fontWeight: "bold", fontSize: 20 }}
+                        color={"green"}
+                      >
+                        ₹{obj.currentPrice}
+                      </Typography>
+                    </CardContent>
+                  </Link>
+                </CardActionArea>
+              </Card>
+            ))
+          : ""}
+        <div class="content-column price-block col-lg-4 col-md-2 col-sm-12">
+          <div class="inner-box">
+            <div
+              class="packge-plan"
+              /* style="background-image:url('images/resource/price-shape.png');" */
+            >
+              <h6>Know More?</h6>
+              <div class="price">Contact Us</div>
+              <span class="plan-text">for custom Support</span>
+            </div>
+            <div class="list-packges-area">
+              <ul class="price-list">
+                <li class="active">Industry Selection</li>
+                <li class="active">Project Identification</li>
+                <li class="active">Stock Analysis</li>
+              </ul>
+              <div class="buy-btn-area text-left">
+                <a href="#" class="theme-btn btn-style-two buy-btn">
+                  <span class="txt">Call Us</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      ) : (
-        ""
-      )}
-      {projectList
-        ? projectList.map((obj) => (
-            <Card
-              key={obj.projectId}
-              sx={{ minWidth: 180 }}
-              style={{
-                display: "inline-block",
-                width: "25%",
-                marginLeft: "4%",
-                marginRight: "4%",
-                marginBottom: "10px",
-              }}
-              className={classes.root}
-            >
-              <CardActionArea>
-                <Link
-                  href={{
-                    pathname:
-                      "/" + props.assetRef.assetId + "/" + obj.projectId,
-                    query: {
-                      projectRef: obj.projectId,
-                    },
-                  }}
-                  as={`/${props.assetRef.assetId}/${obj.projectId}`}
-                >
-                  <CardContent>
-                    <Typography variant="h5" style={{ fontWeight: "bolder" }}>
-                      {obj.projectName}
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      sx={{ fontWeight: "700", marginBottom: "15px" }}
-                    >
-                      {obj.assetName}
-                    </Typography>
-                    <Typography
-                      color="text.secondary"
-                      style={{ fontSize: "10px" }}
-                      sx={{ fontWeight: "650" }}
-                    >
-                      Current Price
-                    </Typography>
-                    <Typography
-                      sx={{ fontWeight: "bold", fontSize: 20 }}
-                      color={"green"}
-                    >
-                      ₹{obj.currentPrice}
-                    </Typography>
-                  </CardContent>
-                </Link>
-              </CardActionArea>
-            </Card>
-          ))
-        : ""}
-        </Box>
-        {/* <footer class="main-footer style-three" style="background-color: #c2e5dd; margin-top: -100px;">
+      </Box>
+      {/* <footer class="main-footer style-three" style="background-color: #c2e5dd; margin-top: -100px;">
             <div class="auto-container">
                 <div class="widgets-section">
                     <div class="row">

@@ -75,7 +75,8 @@ const StyledTypography = styled(Typography)`
   ${({ theme }) => `
   cursor: pointer;
   color: black;
-  width:100px;
+  // width:160px;
+  font-weight:600;
   transition: ${theme.transitions.create(["transform"], {
     duration: theme.transitions.duration.standard,
   })};
@@ -131,7 +132,7 @@ export function AppBarComponent(props) {
                 <ThemeProvider theme={customTheme}>
                   <StyledTypography
                     component="div"
-                    sx={{ marginLeft: "auto", color: "black" }}
+                    sx={{ marginLeft: "auto", color: "black",marginRight:"30px" }}
                   >
                     About Us
                   </StyledTypography>
@@ -150,7 +151,7 @@ export function AppBarComponent(props) {
             <Button
               href={props.path}
               style={{
-                /* marginLeft:"auto" */ /* ,float:"right" */ color: "blue",
+                /* marginLeft:"auto" */ /* ,float:"right" */ color: "black",
               }}
             >
               {props.pathname}
