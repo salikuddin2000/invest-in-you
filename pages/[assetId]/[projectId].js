@@ -20,6 +20,7 @@ import { TextField } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { async } from "@firebase/util";
+import { AppBarComponent } from "../../components/AppBarComponent"
 
 const style = {
   position: "absolute",
@@ -142,108 +143,111 @@ function ProjectPage(props) {
   }, [userData, checkForSell]);
   return (
     <>
-      <div>Project Page</div>
-      <Line
-        style={{ maxWidth: "500px", maxHeight: "300px" }}
-        data={{
-          labels: timeList ? timeList : [],
-          datasets: [
-            {
-              label: "Live Price",
-              data: priceList ? priceList : [],
-              fill: true,
-              backgroundColor: "rgba(75,192,192,0.2)",
-              borderColor: "rgba(75,192,192,1)",
-            },
-          ],
-        }}
-      />
-      <Button onClick={handleBuyOpen}>Buy</Button>
-      <Modal
-        keepMounted
-        open={buyOpen}
-        onClose={handleBuyClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Enter quantity
-          </Typography>
-          <TextField
-            label="Enter quantity"
-            onChange={handleBuyChange}
-            name="numberformat"
-            id="formatted-numberformat-input"
-            variant="standard"
-          />
-          {console.log(userData)}
-          {project ? <h3>Rs{project.currentPrice * buyQuantity}</h3> : ""}
-          {userData &&
-          userData.data.credit < project.currentPrice * buyQuantity ? (
-            <Alert severity="error">
-              <AlertTitle>Insufficient Credit</AlertTitle>
-              Credit: <strong>Rs{userData.data.credit}</strong>
-            </Alert>
-          ) : (
-            <Button
-              onClick={async () => {
-                await buy(
-                  props.projectRef.projectId,
-                  user.email,
-                  parseInt(buyQuantity)
-                ),
-                  setCheckForSell(!checkForSell),
-                  setBuyOpen(false)
-              }}
-            >
-              Buy
-            </Button>
-          )}
-        </Box>
-      </Modal>
-      {check ? <Button onClick={handleSellOpen}>sell</Button> : ""}
-      <Modal
-        keepMounted
-        open={sellOpen}
-        onClose={handleSellClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Enter quantity
-          </Typography>
+      <AppBarComponent path={"/portfolio"} pathname={"portfolio"} />
+      <div style={{ marginTop: "100px", marginLeft: "15%", marginRight: "15%" }}>
+        <Line
+         
+          style={{ minWidth: "100%" }}
+          data={{
+            labels: timeList ? timeList : [],
+            datasets: [
+              {
+                label: "Current Price",
+                data: priceList ? priceList : [],
+                fill: true,
+                backgroundColor: "rgba(75,192,192,0.2)",
+                borderColor: "rgba(75,192,192,1)",
+              },
+            ],
+          }}
+        />
+        <Button onClick={handleBuyOpen}>Buy</Button>
+        <Modal
+          keepMounted
+          open={buyOpen}
+          onClose={handleBuyClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+              Enter quantity
+            </Typography>
+            <TextField
+              label="Enter quantity"
+              onChange={handleBuyChange}
+              name="numberformat"
+              id="formatted-numberformat-input"
+              variant="standard"
+            />
+            {console.log(userData)}
+            {project ? <h3>Rs{project.currentPrice * buyQuantity}</h3> : ""}
+            {userData &&
+              userData.data.credit < project.currentPrice * buyQuantity ? (
+              <Alert severity="error">
+                <AlertTitle>Insufficient Credit</AlertTitle>
+                Credit: <strong>Rs{userData.data.credit}</strong>
+              </Alert>
+            ) : (
+              <Button
+                onClick={async () => {
+                  await buy(
+                    props.projectRef.projectId,
+                    user.email,
+                    parseInt(buyQuantity)
+                  ),
+                    setCheckForSell(!checkForSell),
+                    setBuyOpen(false)
+                }}
+              >
+                Buy
+              </Button>
+            )}
+          </Box>
+        </Modal>
+        {check ? <Button onClick={handleSellOpen}>sell</Button> : ""}
+        <Modal
+          keepMounted
+          open={sellOpen}
+          onClose={handleSellClose}
+          aria-labelledby="keep-mounted-modal-title"
+          aria-describedby="keep-mounted-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+              Enter quantity
+            </Typography>
 
-          <TextField
-            label="Enter quantity"
-            onChange={handleSellChange}
-            name="numberformat"
-            id="formatted-numberformat-input"
-            variant="standard"
-          />
-          {holdingQuantity < sellQuantity ? (
-            <Alert severity="error">
-              <AlertTitle>Insufficient Holdings</AlertTitle>
-              Holdings: <strong>{holdingQuantity}</strong>
-            </Alert>
-          ) : (
-            <Button
-              onClick={async () => {
-                await sell(
-                  user.email,
-                  props.projectRef.projectId,
-                  parseInt(sellQuantity)
-                ),
-                  setCheckForSell(!checkForSell),
-                  setSellOpen(false)
-              }}
-            >
-              Sell
-            </Button>
-          )}
-        </Box>
-      </Modal>
+            <TextField
+              label="Enter quantity"
+              onChange={handleSellChange}
+              name="numberformat"
+              id="formatted-numberformat-input"
+              variant="standard"
+            />
+            {holdingQuantity < sellQuantity ? (
+              <Alert severity="error">
+                <AlertTitle>Insufficient Holdings</AlertTitle>
+                Holdings: <strong>{holdingQuantity}</strong>
+              </Alert>
+            ) : (
+              <Button
+                onClick={async () => {
+                  await sell(
+                    user.email,
+                    props.projectRef.projectId,
+                    parseInt(sellQuantity)
+                  ),
+                    setCheckForSell(!checkForSell),
+                    setSellOpen(false)
+                }}
+              >
+                Sell
+              </Button>
+            )}
+          </Box>
+        </Modal>
+      </div>
     </>
   );
 }

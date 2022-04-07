@@ -27,7 +27,7 @@ const customTheme = createTheme({
     },
   },
   typography: {
-    "fontFamily": `sans-serif,"Roboto","Arial"`,
+    "fontFamily": `"Poppins", "sans-serif" ,"Roboto","Arial"`,
     "fontSize": 14,
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
@@ -122,9 +122,9 @@ export function AppBarComponent(props) {
   return (
     <Container>
       <HideOnScroll {...props}>
-        <AppBar sx={{ backgroundColor: "white" }}>
+        <AppBar sx={{paddingTop: "10px", paddingBottom: "10px", backgroundColor: "white", boxShadow: "0px 1px 0px #f2f2f2"}}>
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ color: "blue" }}>
+            <Typography variant="h6" component="div" sx={{color: "blue" }}>
               InvestInYou
             </Typography>
             <NoSsr>

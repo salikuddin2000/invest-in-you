@@ -53,34 +53,40 @@ function Assetpage(props) {
     // <div>Assetpage{/*  {[assetId]} */}</div>
     <>
       <AppBarComponent path={"/portfolio"} pathname={"portfolio"} />
-      <Box sx={{ marginTop: "80px", paddingLeft: "7%", paddingRight: "7%" }}>
+      <Box sx={{ marginTop: "80px", marginLeft: "15%", marginRight: "15%" }}>
         {assetInfo ? (
           <div
             style={{
               display: "flex",
               flexWrap: "wrap" /* ,flexDirection:"column" */,
+              paddingTop: "100px",
             }}
           >
             <img
               src={assetInfo.photoURL}
-              style={{ height: "40vh" /* ,maxWidth:"50vh",flexBasis:"50%" */ }}
+              style={{ height: "50vh" /* ,maxWidth:"50vh",flexBasis:"50%" */ }}
             />
-            <div style={{ flexBasis: "50%", marginLeft: "30px" }}>
-              <h1 /*  style={{display:"inline"}} */>{assetInfo.name}</h1>
-              <h2 style={{ color: "grey", fontWeight: "600" }}>
+            <div style={{ flexBasis: "50%", marginLeft: "70px" }}>
+              <h1 style={{fontSize: "43px", margin: "0px", marginBottom: "10px", marginTop: "10px"}} /*  style={{display:"inline"}} */>{assetInfo.name}</h1>
+              <h2 style={{ color: "grey", fontWeight: "600", margin: "0px" }}>
                 General Profile
               </h2>
-              <h3 style={{ color: "grey", fontWeight: "500" }}>
+              <h3 style={{ color: "grey", fontWeight: "500", textAlign: "justify", margin: "0px" }}>
                 <b>Short Bio:</b> {assetInfo.description}
               </h3>
-              <h3 style={{ color: "grey", fontWeight: "500" }}>
+              <h3 style={{ color: "grey", fontWeight: "500" , margin: "0px", marginTop: "10px"}}>
                 <b>Profession:</b> {assetInfo.Profession}
               </h3>
             </div>
+            <br />
           </div>
         ) : (
           ""
         )}
+        <br />
+        <br />
+        <hr style={{border: "0", height: "1px", backgroundImage: "linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.05))",}}/>
+        <br />
         {projectList
           ? projectList.map((obj) => (
               <Card

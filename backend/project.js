@@ -179,8 +179,9 @@ export function projectLiveValuesForGraph(projectId) {
         price.push(await e.data().currentPrice)
         d.setUTCSeconds(e.data().timestamp.seconds);
         let timeString=d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+"-"+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()
+        let dayMonthString = timeString.split("-")[1].split("/")[0] + "/" + timeString.split("-")[1].split("/")[1]
         // console.log(timeString)
-        time.push(timeString)
+        time.push(dayMonthString)
       })
       setPriceList(price.reverse())
       setTimeList(time.reverse())
