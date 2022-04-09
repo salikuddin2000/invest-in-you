@@ -1,13 +1,14 @@
 import "../styles/globals.css";
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "../styles/button.css";
 
 // import Button from "@material-ui/core/Button";
 
 const themeLight = createTheme({
   palette: {
     background: {
-      default: "#e5e5e5"
+      // default: "#e5e5e5"
     }
   }
 });

@@ -12,6 +12,22 @@ import {
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
 import AppBarComponent from "../../components/AppBarComponent";
+import { Grid } from "@mui/material";
+
+const footers = [
+  {
+    title: "Quick links",
+    description: ["Vision & Values", "Careers", "Services"],
+  },
+  {
+    title: "Useful Links",
+    description: ["Awards", "Media", "Contact"],
+  },
+  // {
+  //   title: 'Legal',
+  //   description: ['Privacy policy', 'Terms of use'],
+  // },
+];
 
 export async function getServerSideProps(context) {
   console.log(context.query);
@@ -67,14 +83,37 @@ function Assetpage(props) {
               style={{ height: "50vh" /* ,maxWidth:"50vh",flexBasis:"50%" */ }}
             />
             <div style={{ flexBasis: "50%", marginLeft: "70px" }}>
-              <h1 style={{fontSize: "43px", margin: "0px", marginBottom: "10px", marginTop: "10px"}} /*  style={{display:"inline"}} */>{assetInfo.name}</h1>
+              <h1
+                style={{
+                  fontSize: "43px",
+                  margin: "0px",
+                  marginBottom: "10px",
+                  marginTop: "10px",
+                }} /*  style={{display:"inline"}} */
+              >
+                {assetInfo.name}
+              </h1>
               <h2 style={{ color: "grey", fontWeight: "600", margin: "0px" }}>
                 General Profile
               </h2>
-              <h3 style={{ color: "grey", fontWeight: "500", textAlign: "justify", margin: "0px" }}>
+              <h3
+                style={{
+                  color: "grey",
+                  fontWeight: "500",
+                  textAlign: "justify",
+                  margin: "0px",
+                }}
+              >
                 <b>Short Bio:</b> {assetInfo.description}
               </h3>
-              <h3 style={{ color: "grey", fontWeight: "500" , margin: "0px", marginTop: "10px"}}>
+              <h3
+                style={{
+                  color: "grey",
+                  fontWeight: "500",
+                  margin: "0px",
+                  marginTop: "10px",
+                }}
+              >
                 <b>Profession:</b> {assetInfo.Profession}
               </h3>
             </div>
@@ -85,7 +124,14 @@ function Assetpage(props) {
         )}
         <br />
         <br />
-        <hr style={{border: "0", height: "1px", backgroundImage: "linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.05))",}}/>
+        <hr
+          style={{
+            border: "0",
+            height: "1px",
+            backgroundImage:
+              "linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.05))",
+          }}
+        />
         <br />
         {projectList
           ? projectList.map((obj) => (
@@ -141,107 +187,52 @@ function Assetpage(props) {
               </Card>
             ))
           : ""}
-        <div class="content-column price-block col-lg-4 col-md-2 col-sm-12">
-          <div class="inner-box">
-            <div
-              class="packge-plan"
-              /* style="background-image:url('images/resource/price-shape.png');" */
-            >
-              <h6>Know More?</h6>
-              <div class="price">Contact Us</div>
-              <span class="plan-text">for custom Support</span>
-            </div>
-            <div class="list-packges-area">
-              <ul class="price-list">
-                <li class="active">Industry Selection</li>
-                <li class="active">Project Identification</li>
-                <li class="active">Stock Analysis</li>
-              </ul>
-              <div class="buy-btn-area text-left">
-                <a href="#" class="theme-btn btn-style-two buy-btn">
-                  <span class="txt">Call Us</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
       </Box>
-      {/* <footer class="main-footer style-three" style="background-color: #c2e5dd; margin-top: -100px;">
-            <div class="auto-container">
-                <div class="widgets-section">
-                    <div class="row">
-                        <div class="big-column col-xl-4 col-lg-12 col-md-12 col-sm-12">
-                            <div class="row">
-                                <div class="footer-column col-xl-8 col-lg-6 col-md-6 col-sm-12">
-                                    <div class="footer-widget about-widget">
-                                        <div class="footer-logo">
-                                            <figure>
-                                                <a href="index.html"><img src="images/logo.png" alt="" /></a>
-                                            </figure>
-                                        </div>
-                                        <div class="widget-content">
-                                            <p>Invest in You have much planned for the future, working with great clients and continued Stock Investment. If you’d like to join our team.</p>
-                                            <ul class="social-icon-two">
-                                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="big-column col-xl-8 col-lg-12 col-md-12 col-sm-12">
-                            <div class="row clearfix">
-                                <div class="footer-column col-xl-5 col-lg-6 col-md-6 col-sm-12">
-                                    <div class="footer-widget links-widget">
-                                        <h4 class="widget-title">Quick links</h4>
-                                        <div class="widget-content">
-                                            <ul class="list">
-                                                <li><a href="#">Vision & Values</a></li>
-                                                <li><a href="#">Careers</a></li>
-                                                <li><a href="#">Services</a></li>
-                                            </ul>
-                                            <ul class="list">
-                                                <li><a href="#">Awards</a></li>
-                                                <li><a href="#">Media</a></li>
-                                                <li><a href="#">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer-column col-xl-7 col-lg-6 col-md-6 col-sm-12">
-                                    <div class="footer-widget links-widget">
-                                        <h4 class="widget-title">Useful links</h4>
-                                        <div class="widget-content">
-                                            <ul class="list">
-                                                <li><a href="#">Vision & Values</a></li>
-                                                <li><a href="#">Careers</a></li>
-                                                <li><a href="#">Services</a></li>
-                                            </ul>
-                                            <ul class="list">
-                                                <li><a href="#">Awards</a></li>
-                                                <li><a href="#">Media</a></li>
-                                                <li><a href="#">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="auto-container" style="max-width: 100%; padding: 0px;">
-                    <div class="inner-container clearfix">
-                        <div class="copyright-text">
-                            <p>Copyright © 2021 Invest in You. All right reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer> */}
+      {/* Footer */}
+      <Container
+        maxWidth="100%"
+        component="footer"
+        sx={{
+          mt: 8,
+          py: [3, 6],
+        }}
+        style={{backgroundColor:"#c2e5dd"}}
+      >
+        <Grid container spacing={4} justifyContent="space-evenly">
+        <Grid item xs={6} sm={3} key="InvestInYou">
+        <Typography variant="h5" color="text.primary" style={{fontWeight:'600',fontSize:"28px"}} gutterBottom>
+                InvestInYou
+              </Typography>
+              <p style={{textAlign:"justify"}}>
+                Invest in You have much planned for the future, working with
+                great clients and continued Stock Investment. If you’d like to
+                join our team.
+              </p>
+          </Grid>
+          {footers.map((footer) => (
+            <Grid item xs={6} sm={3} key={footer.title}>
+              <Typography variant="h6" style={{fontWeight:'600'}} color="text.primary" gutterBottom>
+                {footer.title}
+              </Typography>
+              <ul style={{listStyle:"none",paddingLeft:"10px"}}>
+                {footer.description.map((item) => (
+                  <li key={item}>
+                    <Link href="#" variant="subtitle1" color="text.secondary">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Grid>
+          ))}
+        </Grid>
+        <div style={{marginLeft:"auto",marginRight:"auto",textAlign:"center"}}>
+        <Typography style={{ marginLeft: "5px", display: "inline" }}>
+        <b>&#169; InvestInYou</b>
+        </Typography>
+        </div>
+      </Container>
+
     </>
   );
 }
