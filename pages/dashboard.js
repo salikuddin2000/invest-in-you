@@ -23,7 +23,7 @@ function Dashboard(props) {
 
   return (
     <>
-      <AppBarComponent path={"/portfolio"} pathname={"portfolio"} /><br />
+      <AppBarComponent path={"/portfolio"} pathname={"Portfolio"} /><br />
       <Container style={{ paddingTop: "50px" }}>
         <Box sx={{ my: 2 }}>
           {/* {console.log(res)} */}

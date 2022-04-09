@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/button.css";
+import FooterComponent from "../components/FooterComponent";
 
 // import Button from "@material-ui/core/Button";
 
@@ -47,6 +48,7 @@ function MyApp({ Component, pageProps,props }) {
       {/* <Toolbar id="back-to-top-anchor" /> */}
         {/* <Box sx={{ my: 2 }}> */} 
           <Component {...pageProps} />
+          <FooterComponent />
         {/* </Box> */}
       {/* </Container> */}
      

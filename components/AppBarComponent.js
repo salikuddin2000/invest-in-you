@@ -124,9 +124,11 @@ export function AppBarComponent(props) {
       <HideOnScroll {...props}>
         <AppBar sx={{paddingTop: "10px", paddingBottom: "10px", backgroundColor: "white", boxShadow: "0px 1px 0px #f2f2f2"}}>
           <Toolbar>
+            <a href="/dashboard">
             <Typography variant="h6" component="div" sx={{color: "blue" }}>
               InvestInYou
             </Typography>
+            </a>
             <NoSsr>
               <MuiThemeProvider theme={customTheme}>
                 <ThemeProvider theme={customTheme}>
