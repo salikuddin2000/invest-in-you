@@ -68,7 +68,7 @@ function Assetpage(props) {
   return (
     // <div>Assetpage{/*  {[assetId]} */}</div>
     <>
-      <AppBarComponent path={"/portfolio"} pathname={"portfolio"} />
+      <AppBarComponent path={"/portfolio"} pathname={"Portfolio"} />
       <Box sx={{ marginTop: "80px", marginLeft: "15%", marginRight: "15%" }}>
         {assetInfo ? (
           <div
@@ -216,10 +216,10 @@ function Assetpage(props) {
               </Typography>
               <ul style={{listStyle:"none",paddingLeft:"10px"}}>
                 {footer.description.map((item) => (
-                  <li key={item}>
-                    <Link href="#" variant="subtitle1" color="text.secondary">
+                  <li key={item} style={{cursor:"pointer"}}>
+                    {/* <Link href="#" variant="subtitle1" color="text.secondary"> */}
                       {item}
-                    </Link>
+                    {/* </Link> */}
                   </li>
                 ))}
               </ul>
