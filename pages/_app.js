@@ -1,8 +1,8 @@
 import "../styles/globals.css";
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/button.css";
-import FooterComponent from "../components/FooterComponent";
+import "../styles/loader.css";
 
 // import Button from "@material-ui/core/Button";
 
@@ -10,8 +10,8 @@ const themeLight = createTheme({
   palette: {
     background: {
       // default: "#e5e5e5"
-    }
-  }
+    },
+  },
 });
 
 // const themeDark = createTheme({
@@ -35,23 +35,19 @@ const themeLight = createTheme({
 //   );
 // };
 
-
-
-
-function MyApp({ Component, pageProps,props }) {
+function MyApp({ Component, pageProps, props }) {
   return (
     <ThemeProvider theme={themeLight}>
       <CssBaseline />
-    {/* <Container style={{backgroundColor:"#E5E5E5" }}> */}
-     
+      {/* <Container style={{backgroundColor:"#E5E5E5" }}> */}
+
       {/* <Container>
       {/* <Toolbar id="back-to-top-anchor" /> */}
-        {/* <Box sx={{ my: 2 }}> */} 
-          <Component {...pageProps} />
-          <FooterComponent />
-        {/* </Box> */}
+      {/* <Box sx={{ my: 2 }}> */}
+      <Component {...pageProps} />
+      {/* </Box> */}
       {/* </Container> */}
-     
+
       {/* </Container> */}
     </ThemeProvider>
   );

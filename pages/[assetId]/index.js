@@ -13,8 +13,7 @@ import { makeStyles } from "@mui/styles";
 import Link from "next/link";
 import AppBarComponent from "../../components/AppBarComponent";
 import { Grid } from "@mui/material";
-
-
+import FooterComponent from "../../components/FooterComponent";
 
 export async function getServerSideProps(context) {
   console.log(context.query);
@@ -176,7 +175,7 @@ function Assetpage(props) {
           : ""}
       </Box>
       {/* Footer */}
-
+      <FooterComponent />
     </>
   );
 }

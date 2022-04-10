@@ -4,6 +4,7 @@ import { userDetails } from "../backend/user";
 import AppBarComponent from "../components/AppBarComponent";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import FooterComponent from "../components/FooterComponent";
 
 function Portfolio() {
   const { user } = useUser();
@@ -77,6 +78,7 @@ function Portfolio() {
         : ""}
       {/* <div style={{display:"block",paddingLeft:"auto",paddingRight:"auto"}}> */}
       {/* </div> */}
+      <FooterComponent />
     </>
   );
 }

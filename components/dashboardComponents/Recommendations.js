@@ -53,7 +53,7 @@ export default function Recommendations() {
               marginBottom: "30px",
               borderRadius: "13px",
               background: "linear-gradient(145deg, #e6e6e6, #ffffff)",
-              boxShadow:  "9px 9px 18px #e3e3e3, -9px -9px 18px #ffffff",
+              boxShadow: "9px 9px 18px #e3e3e3, -9px -9px 18px #ffffff",
             }}
             className={classes.root}
           >

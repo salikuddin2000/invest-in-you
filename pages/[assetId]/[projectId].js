@@ -20,7 +20,8 @@ import { TextField } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { async } from "@firebase/util";
-import { AppBarComponent } from "../../components/AppBarComponent"
+import { AppBarComponent } from "../../components/AppBarComponent";
+import FooterComponent from "../../components/FooterComponent";
 
 const style = {
   position: "absolute",
@@ -144,9 +145,10 @@ function ProjectPage(props) {
   return (
     <>
       <AppBarComponent path={"/portfolio"} pathname={"portfolio"} />
-      <div style={{ marginTop: "100px", marginLeft: "15%", marginRight: "15%" }}>
+      <div
+        style={{ marginTop: "100px", marginLeft: "15%", marginRight: "15%" }}
+      >
         <Line
-         
           style={{ minWidth: "100%" }}
           data={{
             labels: timeList ? timeList : [],
@@ -170,7 +172,11 @@ function ProjectPage(props) {
           aria-describedby="keep-mounted-modal-description"
         >
           <Box sx={style}>
-            <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            <Typography
+              id="keep-mounted-modal-title"
+              variant="h6"
+              component="h2"
+            >
               Enter quantity
             </Typography>
             <TextField
@@ -183,7 +189,7 @@ function ProjectPage(props) {
             {console.log(userData)}
             {project ? <h3>Rs{project.currentPrice * buyQuantity}</h3> : ""}
             {userData &&
-              userData.data.credit < project.currentPrice * buyQuantity ? (
+            userData.data.credit < project.currentPrice * buyQuantity ? (
               <Alert severity="error">
                 <AlertTitle>Insufficient Credit</AlertTitle>
                 Credit: <strong>Rs{userData.data.credit}</strong>
@@ -197,7 +203,7 @@ function ProjectPage(props) {
                     parseInt(buyQuantity)
                   ),
                     setCheckForSell(!checkForSell),
-                    setBuyOpen(false)
+                    setBuyOpen(false);
                 }}
               >
                 Buy
@@ -214,7 +220,11 @@ function ProjectPage(props) {
           aria-describedby="keep-mounted-modal-description"
         >
           <Box sx={style}>
-            <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            <Typography
+              id="keep-mounted-modal-title"
+              variant="h6"
+              component="h2"
+            >
               Enter quantity
             </Typography>
 
@@ -239,7 +249,7 @@ function ProjectPage(props) {
                     parseInt(sellQuantity)
                   ),
                     setCheckForSell(!checkForSell),
-                    setSellOpen(false)
+                    setSellOpen(false);
                 }}
               >
                 Sell
@@ -248,6 +258,7 @@ function ProjectPage(props) {
           </Box>
         </Modal>
       </div>
+      <FooterComponent />
     </>
   );
 }
