@@ -28,8 +28,8 @@ function Dashboard(props) {
         <Box sx={{ my: 2 }}>
           {/* {console.log(res)} */}
           {/* {abc?<h2>{abc.initialPrice}</h2>:<h2>initial</h2>} */}
-          <h1>Logged In</h1>
-          <button onClick={logout}>Logout</button>
+          {/* <h1>Logged In</h1>
+          <button onClick={logout}>Logout</button> */}
           <Recommendations />
         </Box>
       </Container>

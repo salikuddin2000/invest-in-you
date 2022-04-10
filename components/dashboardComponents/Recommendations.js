@@ -50,10 +50,10 @@ export default function Recommendations() {
               width: "25%",
               marginLeft: "4%",
               marginRight: "4%",
-              marginBottom: "10px",
-              borderRadius: "16px",
+              marginBottom: "30px",
+              borderRadius: "13px",
               background: "linear-gradient(145deg, #e6e6e6, #ffffff)",
-              boxShadow: "16px 16px 33px #e8e8e8,-16px -16px 33px #ffffff",
+              boxShadow:  "9px 9px 18px #e3e3e3, -9px -9px 18px #ffffff",
             }}
             className={classes.root}
           >
@@ -85,7 +85,7 @@ export default function Recommendations() {
                     Current Price
                   </Typography>
                   <Typography
-                    sx={{ fontWeight: "bold", fontSize: 20 }}
+                    sx={{ fontWeight: "bold", fontSize: 22 }}
                     color={"green"}
                   >
                     ₹{obj.currentPrice}
