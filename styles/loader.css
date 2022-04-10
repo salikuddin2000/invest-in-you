@@ -23,8 +23,8 @@
   width: 0;
 }
 .scene {
-    margin-top: 80px;
-    margin-left: 80px;
+    margin-top: 40vh;
+    margin-bottom: auto;
   perspective: 800px;
   transform-style: preserve-3d;
   /* height: 3vh; */

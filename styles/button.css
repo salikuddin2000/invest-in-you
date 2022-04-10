@@ -110,6 +110,48 @@
 .blob-btn:hover .blob-btn__blob {
     transform: translateZ(0) scale(1.7);
 }
-/* @supports (filter: url('#goo')) {
-    transform: translateZ(0) scale(1.4);
-} */
+
+
+
+.button-72 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
+
+  align-items: center;
+  background-color: initial;
+  background-image: linear-gradient(#defff7, #9bc5ba 50%);
+  border-radius: 8px;
+  border-width: 0;
+  box-shadow: #69c8b2 0 2px 2px,rgba(179, 132, 201, 0.4) 0 8px 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  /* display: flex; */
+  /* font-family: Quicksand,sans-serif; */
+  font-size: 8px;
+  font-weight: 700;
+  justify-content: center;
+  /* letter-spacing: .04em; */
+  line-height: 16px;
+  /* margin: 0; */
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: rgba(255, 255, 255, 0.4) 0 0 4px,rgba(255, 255, 255, 0.2) 0 0 12px,rgba(57, 31, 91, 0.6) 1px 1px 4px,rgba(57, 31, 91, 0.32) 4px 4px 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  /* vertical-align: baseline; */
+}
+
+.button-72:hover {
+  background-image: linear-gradient(#d9e4e2, #91cbbd 50%);
+}
+
+@media (min-width: 768px) {
+  .button-72 {
+    font-size: 16px;
+    padding: 7px 15px;
+  }
+}
