@@ -2,80 +2,80 @@ import React from "react";
 
 function Loader() {
   return (
-    <div class="scene">
-      <div class="plane">
-        <div class="cube cube--0">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+    <div className="scene">
+      <div className="plane">
+        <div className="cube cube--0">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--0"></div>
-        <div class="cube cube--1">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--0"></div>
+        <div className="cube cube--1">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--1"></div>
-        <div class="cube cube--2">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--1"></div>
+        <div className="cube cube--2">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--2"></div>
-        <div class="cube cube--3">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--2"></div>
+        <div className="cube cube--3">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--3"></div>
-        <div class="cube cube--4">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--3"></div>
+        <div className="cube cube--4">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--4"></div>
-        <div class="cube cube--5">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--4"></div>
+        <div className="cube cube--5">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--5"></div>
-        <div class="cube cube--6">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--5"></div>
+        <div className="cube cube--6">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--6"></div>
-        <div class="cube cube--7">
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
-          <div class="cube__side"></div>
+        <div className="shadow shadow--6"></div>
+        <div className="cube cube--7">
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
+          <div className="cube__side"></div>
         </div>
-        <div class="shadow shadow--7"></div>
+        <div className="shadow shadow--7"></div>
       </div>
     </div>
   );

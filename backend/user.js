@@ -45,11 +45,13 @@ export function userDetails(email) {
     if(email!==undefined){
       console.log(email)
     const userDetails = await getDocs(q)
+    if(userDetails.docs[0]){
+      console.log(userDetails)
     setUserData({
       "data": userDetails.docs[0].data(),
       "ref": userDetails.docs[0].ref,
       "id": userDetails.docs[0].id
-    })}
+    })}}
   }, [email]);
 
   return { userData };
