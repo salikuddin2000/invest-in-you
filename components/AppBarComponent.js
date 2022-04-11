@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Typography } from "@mui/material";
+import {Typography } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Zoom from "@mui/material/Zoom";
@@ -13,6 +13,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import styled, { ThemeProvider } from "styled-components";
 import NoSsr from "@mui/material/NoSsr";
+import Link from "next/link";
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
@@ -124,11 +125,11 @@ export function AppBarComponent(props) {
       <HideOnScroll {...props}>
         <AppBar sx={{paddingTop: "10px", paddingBottom: "10px", backgroundColor: "white", boxShadow: "0px 1px 0px #f2f2f2"}}>
           <Toolbar>
-            <a href="/dashboard">
+            <Link href="/dashboard">
             <Typography variant="h6" component="div" sx={{color: "blue" }}>
               InvestInYou
             </Typography>
-            </a>
+            </Link>
             <NoSsr>
               <MuiThemeProvider theme={customTheme}>
                 <ThemeProvider theme={customTheme}>
