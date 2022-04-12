@@ -137,7 +137,7 @@ export default function Recommendations() {
         style={{ paddingLeft: "10%", paddingRight: "10%", paddingTop: "20px" }}
       >
         <Typography variant="h4" component="div" marginBottom="10px">
-          Recommendations
+          Project Recommendations
           <br />
         </Typography>
         {recommendationsList.map((obj) => (

@@ -13,11 +13,21 @@ import AppBarComponent from "../components/AppBarComponent";
 import Loader from "../components/Loader";
 import FooterComponent from "../components/FooterComponent";
 import Head from "next/head";
+import { assetsForDashboard } from "../backend/asset";
+import AssetRecommendations from "../components/dashboardComponents/AssetRecommendations";
 
 
 function Dashboard(props) {
   const { user, logout } = useUser();
   const { userData } = userDetails("gaming0world726@gmail.com");
+  // const [assetList, setAssetList] =useState()
+  // useEffect(async() => {
+  //   // console.log(await assetsForDashboard())
+  //   const list= await assetsForDashboard()
+  //   if(list&&list!==[]){
+  //     setAssetList(list)
+  //   }
+  // }, []);
 
   const { priceList, timeList } = projectLiveValuesForGraph(
     "OjYummCSOLkwpD1CsZNy"
@@ -40,8 +50,10 @@ function Dashboard(props) {
       <AppBarComponent path={"/portfolio"} pathname={"Portfolio"} />
       <br />
       <Container style={{ paddingTop: "50px" }}>
+
         {/* <Loader /> */}
         <Box sx={{ my: 2 }}>
+      <AssetRecommendations />
           {/* {console.log(res)} */}
           {/* {abc?<h2>{abc.initialPrice}</h2>:<h2>initial</h2>} */}
           {/* <h1>Logged In</h1>

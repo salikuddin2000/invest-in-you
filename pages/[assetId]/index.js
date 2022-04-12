@@ -8,6 +8,7 @@ import {
   Box,
   Container,
   CardActionArea,
+  Skeleton,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Link from "next/link";
@@ -15,7 +16,6 @@ import AppBarComponent from "../../components/AppBarComponent";
 import { Grid } from "@mui/material";
 import FooterComponent from "../../components/FooterComponent";
 import Head from "next/head";
-
 
 export async function getServerSideProps(context) {
   console.log(context.query);
@@ -63,7 +63,60 @@ function Assetpage(props) {
       </Head>
       <AppBarComponent path={"/portfolio"} pathname={"Portfolio"} />
       <Box sx={{ marginTop: "80px", marginLeft: "15%", marginRight: "15%" }}>
-        {assetInfo ? (
+        {!assetInfo || assetInfo === {} ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              marginBottom: "-100px",
+
+              // paddingTop: "100px",
+            }}
+          >
+            <Skeleton
+              animation="wave"
+              height={580}
+              width="30%"
+              style={{
+                display: "flex",
+                flexWrap: "wrap" /* ,flexDirection:"column" */,
+                paddingTop: "100px",
+              }}
+            />
+            <div
+              style={{
+                flexBasis: "50%",
+                marginLeft: "70px",
+                marginTop: "110px",
+              }}
+            >
+              <Skeleton
+                animation="wave"
+                height={70}
+                width="90%"
+                style={{ marginBottom: 6 }}
+              />
+              <Skeleton
+                animation="wave"
+                height={40}
+                width="35%"
+                style={{ marginBottom: 0, margin: "0" }}
+              />
+              <Skeleton
+                animation="wave"
+                height={180}
+                width="100%"
+                style={{ marginTop: 0, margin: "0" }}
+              />
+              <Skeleton
+                animation="wave"
+                height={40}
+                width="35%"
+                style={{ marginBottom: 0 }}
+              />
+            </div>
+          </div>
+        ) : (
           <div
             style={{
               display: "flex",
@@ -73,8 +126,10 @@ function Assetpage(props) {
           >
             <img
               src={assetInfo.photoURL}
-              style={{ height: "50vh" /* ,maxWidth:"50vh",flexBasis:"50%" */ }}
+              style={{ height: "50vh", width:"400px",objectFit:"cover",
+              objectPosition:"50% 50%",borderRadius:"9px"/* ,maxWidth:"50vh",flexBasis:"50%" */ }}
             />
+
             <div style={{ flexBasis: "50%", marginLeft: "70px" }}>
               <h1
                 style={{
@@ -99,6 +154,7 @@ function Assetpage(props) {
               >
                 <b>Short Bio:</b> {assetInfo.description}
               </h3>
+
               <h3
                 style={{
                   color: "grey",
@@ -112,8 +168,6 @@ function Assetpage(props) {
             </div>
             <br />
           </div>
-        ) : (
-          ""
         )}
         <br />
         <br />
@@ -126,60 +180,140 @@ function Assetpage(props) {
           }}
         />
         <br />
-        {projectList
-          ? projectList.map((obj) => (
-              <Card
-                key={obj.projectId}
-                sx={{ minWidth: 180 }}
-                style={{
-                  display: "inline-block",
-                  width: "25%",
-                  marginLeft: "4%",
-                  marginRight: "4%",
-                  marginBottom: "10px",
-                }}
-                className={classes.root}
-              >
-                <CardActionArea>
-                  <Link
-                    href={{
-                      pathname:
-                        "/" + props.assetRef.assetId + "/" + obj.projectId,
-                      query: {
-                        projectRef: obj.projectId,
-                      },
-                    }}
-                    as={`/${props.assetRef.assetId}/${obj.projectId}`}
-                  >
-                    <CardContent>
-                      <Typography variant="h5" style={{ fontWeight: "bolder" }}>
-                        {obj.projectName}
-                      </Typography>
-                      <Typography
-                        color="text.secondary"
-                        sx={{ fontWeight: "700", marginBottom: "15px" }}
-                      >
-                        {obj.assetName}
-                      </Typography>
-                      <Typography
-                        color="text.secondary"
-                        style={{ fontSize: "10px" }}
-                        sx={{ fontWeight: "650" }}
-                      >
-                        Current Price
-                      </Typography>
-                      <Typography
-                        sx={{ fontWeight: "bold", fontSize: 20 }}
-                        color={"green"}
-                      >
-                        ₹{obj.currentPrice}
-                      </Typography>
-                    </CardContent>
-                  </Link>
-                </CardActionArea>
-              </Card>
-            ))
-          : ""}
+        {projectList && projectList != [] ? (
+          projectList.map((obj) => (
+            <Card
+              key={obj.projectId}
+              sx={{ minWidth: 180 }}
+              style={{
+                display: "inline-block",
+                width: "25%",
+                marginLeft: "4%",
+                marginRight: "4%",
+                marginBottom: "30px",
+                borderRadius: "13px",
+                background: "linear-gradient(145deg, #e6e6e6, #ffffff)",
+                boxShadow: "9px 9px 18px #e3e3e3, -9px -9px 18px #ffffff",
+              }}
+              className={classes.root}
+            >
+              <CardActionArea>
+                <Link
+                  href={{
+                    pathname:
+                      "/" + props.assetRef.assetId + "/" + obj.projectId,
+                    query: {
+                      projectRef: obj.projectId,
+                    },
+                  }}
+                  as={`/${props.assetRef.assetId}/${obj.projectId}`}
+                >
+                  <CardContent>
+                    <Typography variant="h5" style={{ fontWeight: "bolder" }}>
+                      {obj.projectName}
+                    </Typography>
+                    <Typography
+                      color="text.secondary"
+                      sx={{ fontWeight: "700", marginBottom: "15px" }}
+                    >
+                      {obj.assetName}
+                    </Typography>
+                    <Typography
+                      color="text.secondary"
+                      style={{ fontSize: "10px" }}
+                      sx={{ fontWeight: "650" }}
+                    >
+                      Current Price
+                    </Typography>
+                    <Typography
+                      sx={{ fontWeight: "bold", fontSize: 20 }}
+                      color={"green"}
+                    >
+                      ₹{obj.currentPrice}
+                    </Typography>
+                  </CardContent>
+                </Link>
+              </CardActionArea>
+            </Card>
+          ))
+        ) : (
+          <>
+          <Card
+            // key={obj.projectName}
+            sx={{ minWidth: 180 }}
+            style={{
+              display: "inline-block",
+              width: "25%",
+              marginLeft: "4%",
+              marginRight: "4%",
+              marginBottom: "30px",
+              borderRadius: "13px",
+              background: "linear-gradient(145deg, #e6e6e6, #ffffff)",
+              boxShadow: "9px 9px 18px #e3e3e3, -9px -9px 18px #ffffff",
+            }}
+            className={classes.root}
+          >
+            <CardContent>
+              <Skeleton
+                animation="wave"
+                height={30}
+                width="40%"
+                style={{ marginBottom: 6 }}
+              />
+              {/* <Skeleton animation="wave" height={20} width="80%" style={{ marginBottom: "20px" }}/> */}
+              <Skeleton
+                animation="wave"
+                height={20}
+                width="30%"
+                style={{ marginBottom: "12px" }}
+              />
+              <Skeleton
+                animation="wave"
+                height={20}
+                width="20%"
+                style={{ marginBottom: "15px" }}
+              />
+            </CardContent>
+          </Card>
+          <Card
+            // key={obj.projectName}
+            sx={{ minWidth: 180 }}
+            style={{
+              display: "inline-block",
+              width: "25%",
+              marginLeft: "4%",
+              marginRight: "4%",
+              marginBottom: "30px",
+              borderRadius: "13px",
+              background: "linear-gradient(145deg, #e6e6e6, #ffffff)",
+              boxShadow: "9px 9px 18px #e3e3e3, -9px -9px 18px #ffffff",
+            }}
+            className={classes.root}
+          >
+            <CardContent>
+              <Skeleton
+                animation="wave"
+                height={30}
+                width="40%"
+                style={{ marginBottom: 6 }}
+              />
+              {/* <Skeleton animation="wave" height={20} width="80%" style={{ marginBottom: "20px" }}/> */}
+              <Skeleton
+                animation="wave"
+                height={20}
+                width="30%"
+                style={{ marginBottom: "12px" }}
+              />
+              <Skeleton
+                animation="wave"
+                height={20}
+                width="20%"
+                style={{ marginBottom: "15px" }}
+              />
+            </CardContent>
+          </Card>
+          </>
+        )}
       </Box>
       {/* Footer */}
       <FooterComponent />
