@@ -148,6 +148,7 @@ function AssetRecommendations() {
             {assetList.map((asset) => {
               return (
                 <article
+                key={asset.contact}
                   style={{ backgroundImage: `url(${asset.photoURL})`,cursor:"pointer",marginRight:"10px",marginLeft:"10px" }}
                   className="card card--1"
                 >

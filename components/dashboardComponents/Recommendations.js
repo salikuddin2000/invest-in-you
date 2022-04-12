@@ -6,7 +6,7 @@ import {
   Container,
   CardActionArea,
 } from "@mui/material";
-import { textAlign } from "@mui/system";
+import { textAlign, className } from "@mui/system";
 import {
   getProjectByDocIdRealTime,
   getProjectsForDashboard,
