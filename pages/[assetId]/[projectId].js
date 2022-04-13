@@ -150,8 +150,10 @@ function ProjectPage(props) {
       </Head>
       <AppBarComponent path={"/portfolio"} pathname={"Portfolio"} />
       <div
-        style={{ marginTop: "100px", marginLeft: "15%", marginRight: "15%" }}
+        style={{ marginTop: "100px", marginLeft: "7%", marginRight: "7%", }}
       >
+        <div style={{display:"flex"}}>
+          <div style={{paddingLeft: "7%", paddingRight: "7%",flexBasis:"80%"}}>
         <Line
           style={{ minWidth: "100%" }}
           data={{
@@ -167,7 +169,13 @@ function ProjectPage(props) {
             ],
           }}
         />
-        <Button onClick={handleBuyOpen}>Buy</Button>
+        </div>
+        <div style={{flexBasis:"20%",marginTop:"140px"}}>
+        <div className="buyButton" onClick={handleBuyOpen}>Buy</div>
+        <br />
+        {check ? <div className="sellButton" onClick={handleSellOpen}>sell</div> : ""}
+        </div>
+        </div>
         <Modal
           keepMounted
           open={buyOpen}
@@ -215,7 +223,6 @@ function ProjectPage(props) {
             )}
           </Box>
         </Modal>
-        {check ? <Button onClick={handleSellOpen}>sell</Button> : ""}
         <Modal
           keepMounted
           open={sellOpen}
