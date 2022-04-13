@@ -308,10 +308,9 @@ function Portfolio() {
         </TableContainer>
         <div
         className="logoutButton"
-          // style={{ marginLeft: "auto", marginRight: "auto", display: "block",marginTop:"40px",color:"black", fontWeight:"800",background:" #ffffff",boxShadow:"inset 5px 5px 10px #d4d4d4, inset -5px -5px 10px #ffffff"}}
-          // onClick={async () => {
-          //   await logout();
-          // }}
+          onClick={async () => {
+            await logout();
+          }}
         >
           Logout
         </div>

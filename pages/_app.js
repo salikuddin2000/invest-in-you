@@ -4,6 +4,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../styles/button.css";
 import "../styles/loader.css";
 import "../styles/assetCard.css";
+import "../styles/socialIcons.css";
+
 
 // import Button from "@material-ui/core/Button";
 
