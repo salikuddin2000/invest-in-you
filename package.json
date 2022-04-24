@@ -20,7 +20,7 @@
     "@mui/styles": "^5.4.4",
     "chart.js": "^3.7.1",
     "dotenv": "^16.0.0",
-    "firebase": "^9.6.7",
+    "firebase": "^9.6.11",
     "firebase-admin": "^10.0.2",
     "js-cookie": "^3.0.1",
     "next": "12.1.0",
