@@ -1,0 +1,15 @@
+.slideRight {
+    overflow:hidden;
+    white-space:pre;
+}
+.slideRight h1{
+    overflow: visible;
+    white-space: pre;
+    animation: infinite slide-right 9s cubic-bezier(0, 0, .5, .8);
+    transform:translateX(100%);
+}
+@keyframes slide-right {
+    to {
+      transform:translateX(-100%);
+    }
+  }  
